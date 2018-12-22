@@ -14,9 +14,15 @@ Expires: June 25, 2019
 
 Abstract
 
-   This document defines the headers and usage for referring to and
-   transporting X.509 certificates in the CBOR Encoded Message (COSE)
-   Syntax.
+   The CBOR Encoded Message (COSE) structure syntax uses the COSE Key
+   structure for placing keys in a message.  This document extends the
+   way that keys can be identified and transported by providing
+   parameters that refer to or contain X.509 certificates in messages
+   and in the COSE Key structure.
+
+   This document defines a set of hash algorithms for COSE.  These
+   algorithms are needed in order to have X.509 certificates referred to
+   by a thumbprint.
 
 Contributing to this document
 
@@ -43,13 +49,7 @@ Status of This Memo
 
    This Internet-Draft will expire on June 25, 2019.
 
-Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
-   document authors.  All rights reserved.
-
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
 
 
 
@@ -58,6 +58,13 @@ Schaad                    Expires June 25, 2019                 [Page 1]
 Internet-Draft                 COSE X.509                  December 2018
 
 
+Copyright Notice
+
+   Copyright (c) 2018 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -71,41 +78,34 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Requirements Terminology  . . . . . . . . . . . . . . . .   3
    2.  X.509 COSE Headers  . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Hash Algorithm Identifiers  . . . . . . . . . . . . . . . . .   6
-     3.1.  SHA-2 256-bit Hash  . . . . . . . . . . . . . . . . . . .   6
-     3.2.  SHA-2 256-bit Hash trucated to 64 bits  . . . . . . . . .   6
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-     4.1.  COSE Header Parameter Registry  . . . . . . . . . . . . .   6
-     4.2.  COSE Algorithm Registry . . . . . . . . . . . . . . . . .   7
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     6.2.  Informative References  . . . . . . . . . . . . . . . . .   7
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   8
+   3.  X.509 certificates and static-static ECDH . . . . . . . . . .   6
+   4.  Hash Algorithm Identifiers  . . . . . . . . . . . . . . . . .   7
+     4.1.  SHA-2 256-bit Hash  . . . . . . . . . . . . . . . . . . .   7
+     4.2.  SHA-2 256-bit Hash trucated to 64 bits  . . . . . . . . .   8
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  COSE Header Parameter Registry  . . . . . . . . . . . . .   8
+     5.2.  COSE Algorithm Registry . . . . . . . . . . . . . . . . .   8
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
-   In the process of writing RFCXXXX [I-D.ietf-cose-msg] discussions
-   where held on the question of X.509 certificates [RFC5280] and if
-   there were needed.  At the time there were no use cases presented
-   that appeared to have a sufficient set of support to include these
+   In the process of writing [RFC8152] discussions where held on the
+   question of X.509 certificates [RFC5280] and if there was a needed to
+   provide for them.  At the time there were no use cases presented that
+   appeared to have a sufficient set of support to include these
    headers.  Since that time a number of cases where X.509 certificate
    support is necessary have been defined.  This document provides a set
    of headers that will allow applications to transport and refer to
    X.509 certificates in a consistent manner.
 
-   Some of the constrainted device situations are being used where an
+   Some of the constrained device situations are being used where an
    X.509 PKI is already installed.  One of these situations is the 6tish
    environment for enrollment of devices where the certificates are
    installed at the factory.  The [I-D.selander-ace-cose-ecdhe] draft
-   was also written with the idea that long term certificates could be
-   used to provide for authentication of devices and uses them to
-   establish session keys.  A final scenario is the use of COSE as a
-   messaging application where long term existence of keys can be used
-   along with a central authentication authority.  The use of
-   certificates in this scenario allows for key managment to be used
-   which is well understood.
-
 
 
 
@@ -114,15 +114,31 @@ Schaad                    Expires June 25, 2019                 [Page 2]
 Internet-Draft                 COSE X.509                  December 2018
 
 
+   was also written with the idea that long term certificates could be
+   used to provide for authentication of devices and uses them to
+   establish session keys.  A final scenario is the use of COSE as a
+   messaging application where long term existence of keys can be used
+   along with a central authentication authority.  The use of
+   certificates in this scenario allows for key management to be used
+   which is well understood.
+
+   When [RFC8152] was written, there were no requirements for hash
+   algorithms to be included in the algorithm registry.  The use of
+   thumbprints to refer to X.509 certificates is defined in this
+   document which requires the use of hash algorithms.  There have also
+   been other working groups in the IETF that have expressed a
+   requirement for hash algorithms to do have sections of content be
+   provided by reference rather than including it in the main message.
+   This document defines a set of hash algorithms for both of these
+   purposes.
+
 1.1.  Requirements Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in
-   [RFC2119].
-
-   When the words appear in lower case, their natural language meaning
-   is used.
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
 2.  X.509 COSE Headers
 
@@ -132,10 +148,10 @@ Internet-Draft                 COSE X.509                  December 2018
    checking that have been defined over time by the IETF and other
    organizations.  The key structures that have been defined in COSE
    currently do not support all of these properties although some may be
-   found in COSE Web Tokens (CWT) [I-D.ietf-ace-cbor-web-token].
+   found in COSE Web Tokens (CWT) [RFC8392].
 
-   It is not necessarily expected that constrainted devices will fully
-   support the evalaluation and processing of X.509 certificates, it is
+   It is not necessarily expected that constrained devices will fully
+   support the evaluation and processing of X.509 certificates, it is
    perfectly reasonable for a certificate to be assigned to a device
    which it can then provide to a relying party along with a signature
    or encrypted message, the relying party not being a constrained
@@ -146,6 +162,14 @@ Internet-Draft                 COSE X.509                  December 2018
    [RFC5280] or by using a different trust structure, such as a trusted
    certificate distributer for self-signed certificates.  The PKIX
    validation includes matching against the trust anchors configured for
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 3]
+
+Internet-Draft                 COSE X.509                  December 2018
+
+
    the application.  These rules apply to certificates of a chain length
    of one as well as longer chains.  If the application cannot establish
    a trust in the certificate, then it cannot be used.
@@ -161,14 +185,6 @@ Internet-Draft                 COSE X.509                  December 2018
       unordered, the party evaluating the signature will need to do the
       necessary path building.  Certificates needed for any particular
       chain to be built may be absent from the bag.
-
-
-
-
-Schaad                    Expires June 25, 2019                 [Page 3]
-
-Internet-Draft                 COSE X.509                  December 2018
-
 
       As this header element does not provide any trust, the header
       parameter can be in either a protected or unprotected header bag.
@@ -201,6 +217,15 @@ Internet-Draft                 COSE X.509                  December 2018
       *  If multiple certificates are conveyed, a CBOR array of bstrs is
          used.  Each certificate being in it's own slot.
 
+
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 4]
+
+Internet-Draft                 COSE X.509                  December 2018
+
+
    x5t:  This header parameter provides the ability to identify an X.509
       certificate by a hash value.  The parameter is an array of two
       elements.  The first element is an algorithm identifier which is a
@@ -218,14 +243,6 @@ Internet-Draft                 COSE X.509                  December 2018
       certificate by a URL.  The referenced resource can be any of the
       following media types:
 
-
-
-
-Schaad                    Expires June 25, 2019                 [Page 4]
-
-Internet-Draft                 COSE X.509                  December 2018
-
-
       *  application/pkix-cert [RFC2585]
 
       *  application/pkcs7-mime; smime-type="certs-only"
@@ -236,21 +253,34 @@ Internet-Draft                 COSE X.509                  December 2018
 
       As this header element implies a trust relationship, the header
       parameter MUST be in the protected header bag.
-      The URL provided MUST provide integrity protection.  For example,
-      an HTTP or CoAP GET request to retrieve a certificate MUST use TLS
-      [RFC5246] or DTLS.  If the certificate does not chain to an
-      existing trust anchor, the identity of the server MUST be
-      configured as trusted to provide new trust anchors.  This will
-      normally be the situation when self-signed certificates are used.
+      The URL provided MUST provide integrity protection and server
+      authentication.  For example, an HTTP or CoAP GET request to
+      retrieve a certificate MUST use TLS [RFC5246] or DTLS.  If the
+      certificate does not chain to an existing trust anchor, the
+      certificate MUST NOT be trusted unless the server is configured as
+      trusted to provide new trust anchors.  This will normally be the
+      situation when self-signed certificates are used.
 
-   The header paramters used in the following locations:
+   The header parameters used in the following locations:
 
    o  COSE_Signature and COSE_Sign0 objects, in these objects they
       identify the key that was used for generating signature.
 
-   o  COSE_recipient object, in this object they identify the key used
-      by the sender for static-static key agreement algorithms.  They
-      would be used in place either XXXX or YYYY.
+   o  COSE_recipient objects, in this location they may be used to
+      identify the certificate for the recipient of the message.
+
+
+
+
+
+
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 5]
+
+Internet-Draft                 COSE X.509                  December 2018
+
 
    +---------+-------+---------------+---------------------------------+
    | name    | label | value type    | description                     |
@@ -272,34 +302,106 @@ Internet-Draft                 COSE X.509                  December 2018
    COSE_X509 = bstr / [ *certs: bstr ]
    COSE_CertHash = [ hashAlg: (int / tstr), hashValue: bstr ]
 
+3.  X.509 certificates and static-static ECDH
+
+   The header parameters defined in the previous section are used to
+   identify the recipient certificates for the ECDH key agreement
+   algorithms.  In this section we define the algorithm specific
+   parameters that are used for identifying or transporting the senders
+   key for static-static key agreement algorithms.
 
 
 
 
 
-Schaad                    Expires June 25, 2019                 [Page 5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 6]
 
 Internet-Draft                 COSE X.509                  December 2018
 
 
-3.  Hash Algorithm Identifiers
+   +-----------+------+--------------+------------------+--------------+
+   | Name      | Labe | Type         | Algorithm        | Description> |
+   |           | l    |              |                  |              |
+   +-----------+------+--------------+------------------+--------------+
+   | static    | TBD  | COSE_CertHas | ECDH-            | Thumbprint   |
+   | key X.509 |      | h            | SS+HKDF-256,     | for the      |
+   | thumbprin |      |              | ECDH-            | senders      |
+   | t         |      |              | SS+HKDF-512,     | X.509        |
+   |           |      |              | ECDH-SS+A128KW,  | certificate  |
+   |           |      |              | ECDH-            |              |
+   |           |      |              | SS+AES192KW,     |              |
+   |           |      |              | ECDH-SS+AES256KW |              |
+   |           |      |              |                  |              |
+   | static    | TBD  | uri          | ECDH-            | URL for the  |
+   | key X.509 |      |              | SS+HKDF-256,     | senders      |
+   | URL       |      |              | ECDH-            | X.509        |
+   |           |      |              | SS+HKDF-512,     | certificate  |
+   |           |      |              | ECDH-SS+A128KW,  |              |
+   |           |      |              | ECDH-            |              |
+   |           |      |              | SS+AES192KW,     |              |
+   |           |      |              | ECDH-SS+AES256KW |              |
+   |           |      |              |                  |              |
+   | static    | TBD  | COSE_X509    | ECDH-            | static key   |
+   | key X.509 |      |              | SS+HKDF-256,     | X.509        |
+   | cert      |      |              | ECDH-            | certificate  |
+   | chain     |      |              | SS+HKDF-512,     | chain        |
+   |           |      |              | ECDH-SS+A128KW,  |              |
+   |           |      |              | ECDH-            |              |
+   |           |      |              | SS+AES192KW,     |              |
+   |           |      |              | ECDH-SS+AES256KW |              |
+   +-----------+------+--------------+------------------+--------------+
+
+                   Table 2: Static ECDH Algorithm Values
+
+4.  Hash Algorithm Identifiers
 
    The core COSE document did have a need for a standalone hash
    algorithm, and thus did not define any.  In this document, two hash
    algorithms are defined for use with the 'x5t' header parameter.
 
-3.1.  SHA-2 256-bit Hash
+4.1.  SHA-2 256-bit Hash
 
    Define an algorithm identifier for SHA-256.
 
-3.2.  SHA-2 256-bit Hash trucated to 64 bits
+
+
+
+
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 7]
+
+Internet-Draft                 COSE X.509                  December 2018
+
+
+4.2.  SHA-2 256-bit Hash trucated to 64 bits
 
    This hash function uses the SHA-2 256-bit hash function as in the
    previous section, however it truncates the result to 64-bits for
-   transmission.  The fact that it is a trucated hash means that there
-   is now a high likelyhood that colisions will occur, thus this hash
+   transmission.  The fact that it is a truncated hash means that there
+   is now a high likelihood that collisions will occur, thus this hash
    function cannot be used in situations where a unique items is
-   required to be identified.  Luckly for the case of identifying a
+   required to be identified.  Luckily for the case of identifying a
    certificate that is not a requirement, the only requirement is that
    the number of potential certificates (and thus keys) to be tried is
    reduced to a small number.  (Hopefully that number is one, but it can
@@ -321,38 +423,39 @@ Internet-Draft                 COSE X.509                  December 2018
       or failed as no network traffic to validate the certificate would
       ensue.
 
-4.  IANA Considerations
+5.  IANA Considerations
 
-4.1.  COSE Header Parameter Registry
+5.1.  COSE Header Parameter Registry
 
    Put in the registrations.
 
+5.2.  COSE Algorithm Registry
+
+   Put in the registrations.
+
+6.  Security Considerations
+
+   There are security considerations:
+
+7.  References
 
 
 
 
 
 
-Schaad                    Expires June 25, 2019                 [Page 6]
+
+Schaad                    Expires June 25, 2019                 [Page 8]
 
 Internet-Draft                 COSE X.509                  December 2018
 
 
-4.2.  COSE Algorithm Registry
+7.1.  Normative References
 
-   Put in the registrations.
-
-5.  Security Considerations
-
-   There are security considerations:
-
-6.  References
-
-6.1.  Normative References
-
-   [I-D.ietf-cose-msg]
-              Schaad, J., "CBOR Object Signing and Encryption (COSE)",
-              draft-ietf-cose-msg-24 (work in progress), November 2016.
+   [I-D.schaad-cose-rfc8152bis-struct]
+              Schaad, J., "CBOR Object Signing and Encryption (COSE) -
+              Structures and Process", draft-schaad-cose-rfc8152bis-
+              struct-00 (work in progress), August 2018.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -365,12 +468,11 @@ Internet-Draft                 COSE X.509                  December 2018
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
 
-6.2.  Informative References
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [I-D.ietf-ace-cbor-web-token]
-              Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
-              "CBOR Web Token (CWT)", draft-ietf-ace-cbor-web-token-15
-              (work in progress), March 2018.
+7.2.  Informative References
 
    [I-D.ietf-lamps-rfc5751-bis]
               Schaad, J., Ramsdell, B., and S. Turner, "Secure/
@@ -383,17 +485,6 @@ Internet-Draft                 COSE X.509                  December 2018
               Diffie-Hellman Over COSE (EDHOC)", draft-selander-ace-
               cose-ecdhe-10 (work in progress), September 2018.
 
-
-
-
-
-
-
-Schaad                    Expires June 25, 2019                 [Page 7]
-
-Internet-Draft                 COSE X.509                  December 2018
-
-
    [RFC2585]  Housley, R. and P. Hoffman, "Internet X.509 Public Key
               Infrastructure Operational Protocols: FTP and HTTP",
               RFC 2585, DOI 10.17487/RFC2585, May 1999,
@@ -403,6 +494,21 @@ Internet-Draft                 COSE X.509                  December 2018
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
               <https://www.rfc-editor.org/info/rfc5246>.
+
+   [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              RFC 8152, DOI 10.17487/RFC8152, July 2017,
+              <https://www.rfc-editor.org/info/rfc8152>.
+
+
+
+Schaad                    Expires June 25, 2019                 [Page 9]
+
+Internet-Draft                 COSE X.509                  December 2018
+
+
+   [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
+              "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
+              May 2018, <https://www.rfc-editor.org/info/rfc8392>.
 
 Author's Address
 
@@ -445,4 +551,10 @@ Author's Address
 
 
 
-Schaad                    Expires June 25, 2019                 [Page 8]
+
+
+
+
+
+
+Schaad                    Expires June 25, 2019                [Page 10]

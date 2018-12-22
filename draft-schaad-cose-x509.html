@@ -284,16 +284,17 @@ ul.toc li {
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements Terminology">
 <link href="#rfc.section.2" rel="Chapter" title="2 X.509 COSE Headers">
-<link href="#rfc.section.3" rel="Chapter" title="3 Hash Algorithm Identifiers">
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 SHA-2 256-bit Hash">
-<link href="#rfc.section.3.2" rel="Chapter" title="3.2 SHA-2 256-bit Hash trucated to 64 bits">
-<link href="#rfc.section.4" rel="Chapter" title="4 IANA Considerations">
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 COSE Header Parameter Registry">
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 COSE Algorithm Registry">
-<link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
-<link href="#rfc.references" rel="Chapter" title="6 References">
-<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
+<link href="#rfc.section.3" rel="Chapter" title="3 X.509 certificates and static-static ECDH">
+<link href="#rfc.section.4" rel="Chapter" title="4 Hash Algorithm Identifiers">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 SHA-2 256-bit Hash">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 SHA-2 256-bit Hash trucated to 64 bits">
+<link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 COSE Header Parameter Registry">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 COSE Algorithm Registry">
+<link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
+<link href="#rfc.references" rel="Chapter" title="7 References">
+<link href="#rfc.references.1" rel="Chapter" title="7.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -303,8 +304,8 @@ ul.toc li {
   <meta name="dct.creator" content="Schaad, J." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-schaad-cose-x509-latest" />
   <meta name="dct.issued" scheme="ISO8601" content="2018-22" />
-  <meta name="dct.abstract" content="This document defines the headers and usage for  referring to and transporting X.509 certificates  in the CBOR Encoded Message (COSE) Syntax.  " />
-  <meta name="description" content="This document defines the headers and usage for  referring to and transporting X.509 certificates  in the CBOR Encoded Message (COSE) Syntax.  " />
+  <meta name="dct.abstract" content="The CBOR Encoded Message (COSE) structure syntax uses the COSE Key structure for placing keys in a message.  This document extends the way that keys can be identified and transported by providing parameters that refer to or contain X.509 certificates in messages and in the COSE Key structure.  This document defines a set of hash algorithms for COSE.  These algorithms are needed in order to have X.509 certificates referred to by a thumbprint.  " />
+  <meta name="description" content="The CBOR Encoded Message (COSE) structure syntax uses the COSE Key structure for placing keys in a message.  This document extends the way that keys can be identified and transported by providing parameters that refer to or contain X.509 certificates in messages and in the COSE Key structure.  This document defines a set of hash algorithms for COSE.  These algorithms are needed in order to have X.509 certificates referred to by a thumbprint.  " />
 
 </head>
 
@@ -338,7 +339,8 @@ ul.toc li {
   <span class="filename">draft-schaad-cose-x509-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>This document defines the headers and usage for  referring to and transporting X.509 certificates  in the CBOR Encoded Message (COSE) Syntax.  </p>
+<p>The CBOR Encoded Message (COSE) structure syntax uses the COSE Key structure for placing keys in a message.  This document extends the way that keys can be identified and transported by providing parameters that refer to or contain X.509 certificates in messages and in the COSE Key structure.  </p>
+<p>This document defines a set of hash algorithms for COSE.  These algorithms are needed in order to have X.509 certificates referred to by a thumbprint.  </p>
 <h1><a>Contributing to this document</a></h1>
 <p>The source for this draft is being maintained in GitHub.  Suggested changes should be submitted as pull requests  at <span>&lt;</span><a href="https://github.com/cose-wg/X509">https://github.com/cose-wg/X509</a><span>&gt;</span>.  Instructions are on that page as well.  Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.  </p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
@@ -361,25 +363,27 @@ ul.toc li {
 </li>
 </ul><li>2.   <a href="#rfc.section.2">X.509 COSE Headers</a>
 </li>
-<li>3.   <a href="#rfc.section.3">Hash Algorithm Identifiers</a>
+<li>3.   <a href="#rfc.section.3">X.509 certificates and static-static ECDH</a>
 </li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">SHA-2 256-bit Hash</a>
+<li>4.   <a href="#rfc.section.4">Hash Algorithm Identifiers</a>
 </li>
-<li>3.2.   <a href="#rfc.section.3.2">SHA-2 256-bit Hash trucated to 64 bits</a>
+<ul><li>4.1.   <a href="#rfc.section.4.1">SHA-2 256-bit Hash</a>
 </li>
-</ul><li>4.   <a href="#rfc.section.4">IANA Considerations</a>
+<li>4.2.   <a href="#rfc.section.4.2">SHA-2 256-bit Hash trucated to 64 bits</a>
 </li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">COSE Header Parameter Registry</a>
+</ul><li>5.   <a href="#rfc.section.5">IANA Considerations</a>
 </li>
-<li>4.2.   <a href="#rfc.section.4.2">COSE Algorithm Registry</a>
+<ul><li>5.1.   <a href="#rfc.section.5.1">COSE Header Parameter Registry</a>
 </li>
-</ul><li>5.   <a href="#rfc.section.5">Security Considerations</a>
+<li>5.2.   <a href="#rfc.section.5.2">COSE Algorithm Registry</a>
 </li>
-<li>6.   <a href="#rfc.references">References</a>
+</ul><li>6.   <a href="#rfc.section.6">Security Considerations</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
+<li>7.   <a href="#rfc.references">References</a>
 </li>
-<li>6.2.   <a href="#rfc.references.2">Informative References</a>
+<ul><li>7.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>7.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li><a href="#rfc.authors">Author's Address</a>
 </li>
@@ -390,17 +394,17 @@ ul.toc li {
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">In the process of writing RFCXXXX <a href="#I-D.ietf-cose-msg" class="xref">[I-D.ietf-cose-msg]</a> discussions where held on the question of X.509 certificates  <a href="#RFC5280" class="xref">[RFC5280]</a>  and if there were needed.  At the time there were no use cases presented that appeared to have a sufficient set of support to include these headers.  Since that time a number of cases where X.509 certificate support is necessary have been defined.  This document provides a set of headers that will allow applications to transport and refer to X.509 certificates in a consistent manner.  </p>
-<p id="rfc.section.1.p.2">Some of the constrainted device situations are being used where an X.509 PKI is already installed.  One of these situations is the 6tish environment for enrollment of devices where the certificates are installed at the factory.  The <a href="#I-D.selander-ace-cose-ecdhe" class="xref">[I-D.selander-ace-cose-ecdhe]</a> draft was also written with the idea that long term certificates could be used to provide for authentication of devices and uses them to establish session keys.  A final scenario is the use of COSE as a messaging application where long term existence of keys can be used along with a central authentication authority.  The use of certificates in this scenario allows for key managment to be used which is well understood.  </p>
+<p id="rfc.section.1.p.1">In the process of writing <a href="#RFC8152" class="xref">[RFC8152]</a> discussions where held on the question of X.509 certificates  <a href="#RFC5280" class="xref">[RFC5280]</a>  and if there was a needed to provide for them.  At the time there were no use cases presented that appeared to have a sufficient set of support to include these headers.  Since that time a number of cases where X.509 certificate support is necessary have been defined.  This document provides a set of headers that will allow applications to transport and refer to X.509 certificates in a consistent manner.  </p>
+<p id="rfc.section.1.p.2">Some of the constrained device situations are being used where an X.509 PKI is already installed.  One of these situations is the 6tish environment for enrollment of devices where the certificates are installed at the factory.  The <a href="#I-D.selander-ace-cose-ecdhe" class="xref">[I-D.selander-ace-cose-ecdhe]</a> draft was also written with the idea that long term certificates could be used to provide for authentication of devices and uses them to establish session keys.  A final scenario is the use of COSE as a messaging application where long term existence of keys can be used along with a central authentication authority.  The use of certificates in this scenario allows for key management to be used which is well understood.  </p>
+<p id="rfc.section.1.p.3">When <a href="#RFC8152" class="xref">[RFC8152]</a> was written, there were no requirements for hash algorithms to be included in the algorithm registry.  The use of thumbprints to refer to X.509 certificates is defined in this document which requires the use of hash algorithms.  There have also been other working groups in the IETF that have expressed a requirement for hash algorithms to do have sections of content be provided by reference rather than including it in the main message.  This document defines a set of hash algorithms for both of these purposes.  </p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-terminology" id="requirements-terminology">Requirements Terminology</a>
 </h1>
-<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.  </p>
-<p id="rfc.section.1.1.p.2">When the words appear in lower case, their natural language meaning is used.  </p>
+<p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.  </p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> X.509 COSE Headers</h1>
-<p id="rfc.section.2.p.1">The use of X.509 certificates allows for an existing trust infrastructure to be used with COSE.  This includes the full suite of enrollment protocols, trust anchors, trust chaining and revocation checking that have been defined over time by the IETF and other organizations.  The key structures that have been defined in COSE currently do not support all of these properties although some may be found in COSE Web Tokens (CWT) <a href="#I-D.ietf-ace-cbor-web-token" class="xref">[I-D.ietf-ace-cbor-web-token]</a>.  </p>
-<p id="rfc.section.2.p.2">It is not necessarily expected that constrainted devices will fully support the evalaluation and processing of X.509 certificates, it is perfectly reasonable for a certificate to be assigned to a device which it can then provide to a relying party along with a signature or encrypted message, the relying party not being a constrained device.  </p>
+<p id="rfc.section.2.p.1">The use of X.509 certificates allows for an existing trust infrastructure to be used with COSE.  This includes the full suite of enrollment protocols, trust anchors, trust chaining and revocation checking that have been defined over time by the IETF and other organizations.  The key structures that have been defined in COSE currently do not support all of these properties although some may be found in COSE Web Tokens (CWT) <a href="#RFC8392" class="xref">[RFC8392]</a>.  </p>
+<p id="rfc.section.2.p.2">It is not necessarily expected that constrained devices will fully support the evaluation and processing of X.509 certificates, it is perfectly reasonable for a certificate to be assigned to a device which it can then provide to a relying party along with a signature or encrypted message, the relying party not being a constrained device.  </p>
 <p id="rfc.section.2.p.3">Certificates obtained from any of these methods MUST still be validated.  This validation can be done via the PKIX rules in <a href="#RFC5280" class="xref">[RFC5280]</a> or by using a different trust structure, such as a trusted certificate distributer for self-signed certificates.  The PKIX validation includes matching against the trust anchors configured for the application.  These rules apply to certificates of a chain length of one as well as longer chains.  If the application cannot establish a trust in the certificate, then it cannot be used.  </p>
 <p id="rfc.section.2.p.4">The header parameters defined in this document are: </p>
 
@@ -430,15 +434,15 @@ ul.toc li {
 <li>Should we support a PEM type? I cannot find a registered media type for one</li>
 </ul>
 <p> </p>
-<br><br> As this header element implies a trust relationship, the header parameter MUST be in the protected header bag.  <br> The URL provided MUST provide integrity protection.  For example, an HTTP or CoAP GET request to retrieve a certificate MUST use TLS <a href="#RFC5246" class="xref">[RFC5246]</a> or DTLS.  If the certificate does not chain to an existing trust anchor, the identity of the server MUST be configured as trusted to provide new trust anchors.  This will normally be the situation when self-signed certificates are used.  </dd>
+<br><br> As this header element implies a trust relationship, the header parameter MUST be in the protected header bag.  <br> The URL provided MUST provide integrity protection and server authentication.  For example, an HTTP or CoAP GET request to retrieve a certificate MUST use TLS <a href="#RFC5246" class="xref">[RFC5246]</a> or DTLS.  If the certificate does not chain to an existing trust anchor, the certificate MUST NOT be trusted unless the server is configured as trusted to provide new trust anchors.  This will normally be the situation when self-signed certificates are used.  </dd>
 </dl>
 
 <p> </p>
-<p id="rfc.section.2.p.5">The header paramters used in the following locations: </p>
+<p id="rfc.section.2.p.5">The header parameters used in the following locations: </p>
 
 <ul>
 <li>COSE_Signature and COSE_Sign0 objects, in these objects they identify the key that was used for generating signature.  </li>
-<li>COSE_recipient object, in this object they identify the key  used by the sender for static-static key agreement algorithms.  They would be used in place either XXXX or YYYY.  </li>
+<li>COSE_recipient objects, in this location they may be used to identify the certificate for the recipient of the message.  </li>
 </ul>
 
 <p> </p>
@@ -484,14 +488,52 @@ COSE_X509 = bstr / [ *certs: bstr ]
 COSE_CertHash = [ hashAlg: (int / tstr), hashValue: bstr ]
 </pre>
 <h1 id="rfc.section.3">
-<a href="#rfc.section.3">3.</a> Hash Algorithm Identifiers</h1>
-<p id="rfc.section.3.p.1">The core COSE document did have a need for a standalone hash algorithm, and thus did not define any.  In this document, two hash algorithms are defined for use with the 'x5t' header parameter.  </p>
-<h1 id="rfc.section.3.1">
-<a href="#rfc.section.3.1">3.1.</a> SHA-2 256-bit Hash</h1>
-<p id="rfc.section.3.1.p.1">Define an algorithm identifier for SHA-256.  </p>
-<h1 id="rfc.section.3.2">
-<a href="#rfc.section.3.2">3.2.</a> SHA-2 256-bit Hash trucated to 64 bits</h1>
-<p id="rfc.section.3.2.p.1">This hash function uses the SHA-2 256-bit hash function as in the previous section, however it truncates the result to 64-bits for transmission.  The fact that it is a trucated hash means that there is now a high likelyhood that colisions will occur, thus this hash function cannot be used in situations where a unique items is required to be identified.  Luckly for the case of identifying a certificate that is not a requirement, the only requirement is that the number of potential certificates (and thus keys) to be tried is reduced to a small number.  (Hopefully that number is one, but it can not be assumed to be.) After the set of certificates has been filtered down, the public key in each certificate will need to be tried for the operation in question.  The certificate can be validated either before or after it has been checked as working.  The trade-offs involved are: </p>
+<a href="#rfc.section.3">3.</a> X.509 certificates and static-static ECDH</h1>
+<p id="rfc.section.3.p.1">The header parameters defined in the previous section are used to identify the recipient certificates for the ECDH key agreement algorithms.  In this section we define the algorithm specific parameters that are used for identifying or transporting the senders key for static-static key agreement algorithms.  </p>
+<div id="rfc.table.2"></div>
+<div id="Tags2"></div>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<caption>Static ECDH Algorithm Values</caption>
+<thead><tr>
+<th class="left">Name</th>
+<th class="left">Label</th>
+<th class="left">Type</th>
+<th class="left">Algorithm</th>
+<th class="left">Description&gt;</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">static key X.509 thumbprint</td>
+<td class="left">TBD</td>
+<td class="left">COSE_CertHash</td>
+<td class="left">ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW, ECDH-SS+AES192KW, ECDH-SS+AES256KW</td>
+<td class="left">Thumbprint for the senders X.509 certificate</td>
+</tr>
+<tr>
+<td class="left">static key X.509 URL</td>
+<td class="left">TBD</td>
+<td class="left">uri</td>
+<td class="left">ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW, ECDH-SS+AES192KW, ECDH-SS+AES256KW</td>
+<td class="left">URL for the senders X.509 certificate</td>
+</tr>
+<tr>
+<td class="left">static key X.509 cert chain</td>
+<td class="left">TBD</td>
+<td class="left">COSE_X509</td>
+<td class="left">ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW, ECDH-SS+AES192KW, ECDH-SS+AES256KW</td>
+<td class="left">static key X.509 certificate chain</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> Hash Algorithm Identifiers</h1>
+<p id="rfc.section.4.p.1">The core COSE document did have a need for a standalone hash algorithm, and thus did not define any.  In this document, two hash algorithms are defined for use with the 'x5t' header parameter.  </p>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> SHA-2 256-bit Hash</h1>
+<p id="rfc.section.4.1.p.1">Define an algorithm identifier for SHA-256.  </p>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> SHA-2 256-bit Hash trucated to 64 bits</h1>
+<p id="rfc.section.4.2.p.1">This hash function uses the SHA-2 256-bit hash function as in the previous section, however it truncates the result to 64-bits for transmission.  The fact that it is a truncated hash means that there is now a high likelihood that collisions will occur, thus this hash function cannot be used in situations where a unique items is required to be identified.  Luckily for the case of identifying a certificate that is not a requirement, the only requirement is that the number of potential certificates (and thus keys) to be tried is reduced to a small number.  (Hopefully that number is one, but it can not be assumed to be.) After the set of certificates has been filtered down, the public key in each certificate will need to be tried for the operation in question.  The certificate can be validated either before or after it has been checked as working.  The trade-offs involved are: </p>
 
 <ul>
 <li>Certificate validation before using the key will imply that more network traffic may be required in order to fetch certificates and do revocation checking.</li>
@@ -499,30 +541,30 @@ COSE_CertHash = [ hashAlg: (int / tstr), hashValue: bstr ]
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
-</h1>
-<h1 id="rfc.section.4.1">
-<a href="#rfc.section.4.1">4.1.</a> <a href="#cose-header-key-table" id="cose-header-key-table">COSE Header Parameter Registry</a>
-</h1>
-<p id="rfc.section.4.1.p.1">Put in the registrations.  </p>
-<h1 id="rfc.section.4.2">
-<a href="#rfc.section.4.2">4.2.</a> <a href="#cose-algorithm-registry" id="cose-algorithm-registry">COSE Algorithm Registry</a>
-</h1>
-<p id="rfc.section.4.2.p.1">Put in the registrations.  </p>
 <h1 id="rfc.section.5">
-<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.5.p.1">There are security considerations: </p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#cose-header-key-table" id="cose-header-key-table">COSE Header Parameter Registry</a>
+</h1>
+<p id="rfc.section.5.1.p.1">Put in the registrations.  </p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#cose-algorithm-registry" id="cose-algorithm-registry">COSE Algorithm Registry</a>
+</h1>
+<p id="rfc.section.5.2.p.1">Put in the registrations.  </p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.6.p.1">There are security considerations: </p>
 <h1 id="rfc.references">
-<a href="#rfc.references">6.</a> References</h1>
+<a href="#rfc.references">7.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">6.1.</a> Normative References</h1>
+<a href="#rfc.references.1">7.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
-<td class="reference"><b id="I-D.ietf-cose-msg">[I-D.ietf-cose-msg]</b></td>
+<td class="reference"><b id="I-D.schaad-cose-rfc8152bis-struct">[I-D.schaad-cose-rfc8152bis-struct]</b></td>
 <td class="top">
-<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cose-msg-24">CBOR Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-msg-24, November 2016.</td>
+<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-schaad-cose-rfc8152bis-struct-00">CBOR Object Signing and Encryption (COSE) - Structures and Process</a>", Internet-Draft draft-schaad-cose-rfc8152bis-struct-00, August 2018.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -534,15 +576,15 @@ COSE_CertHash = [ hashAlg: (int / tstr), hashValue: bstr ]
 <td class="top">
 <a>Cooper, D.</a>, <a>Santesson, S.</a>, <a>Farrell, S.</a>, <a>Boeyen, S.</a>, <a>Housley, R.</a> and <a>W. Polk</a>, "<a href="https://tools.ietf.org/html/rfc5280">Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>", RFC 5280, DOI 10.17487/RFC5280, May 2008.</td>
 </tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">6.2.</a> Informative References</h1>
+<a href="#rfc.references.2">7.2.</a> Informative References</h1>
 <table><tbody>
-<tr>
-<td class="reference"><b id="I-D.ietf-ace-cbor-web-token">[I-D.ietf-ace-cbor-web-token]</b></td>
-<td class="top">
-<a>Jones, M.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/draft-ietf-ace-cbor-web-token-15">CBOR Web Token (CWT)</a>", Internet-Draft draft-ietf-ace-cbor-web-token-15, March 2018.</td>
-</tr>
 <tr>
 <td class="reference"><b id="I-D.ietf-lamps-rfc5751-bis">[I-D.ietf-lamps-rfc5751-bis]</b></td>
 <td class="top">
@@ -562,6 +604,16 @@ COSE_CertHash = [ hashAlg: (int / tstr), hashValue: bstr ]
 <td class="reference"><b id="RFC5246">[RFC5246]</b></td>
 <td class="top">
 <a>Dierks, T.</a> and <a>E. Rescorla</a>, "<a href="https://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>", RFC 5246, DOI 10.17487/RFC5246, August 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8152">[RFC8152]</b></td>
+<td class="top">
+<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/rfc8152">CBOR Object Signing and Encryption (COSE)</a>", RFC 8152, DOI 10.17487/RFC8152, July 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8392">[RFC8392]</b></td>
+<td class="top">
+<a>Jones, M.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/rfc8392">CBOR Web Token (CWT)</a>", RFC 8392, DOI 10.17487/RFC8392, May 2018.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>

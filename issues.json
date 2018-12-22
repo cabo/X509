@@ -1,0 +1,268 @@
+[
+
+  {
+    "url": "https://api.github.com/repos/cose-wg/X509/issues/5",
+    "repository_url": "https://api.github.com/repos/cose-wg/X509",
+    "labels_url": "https://api.github.com/repos/cose-wg/X509/issues/5/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/X509/issues/5/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/X509/issues/5/events",
+    "html_url": "https://github.com/cose-wg/X509/pull/5",
+    "id": 393554977,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjQwNTQ5NTcw",
+    "number": 5,
+    "title": "Update for circle",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2018-12-21T18:43:10Z",
+    "updated_at": "2018-12-21T18:46:19Z",
+    "closed_at": "2018-12-21T18:46:15Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/X509/pulls/5",
+      "html_url": "https://github.com/cose-wg/X509/pull/5",
+      "diff_url": "https://github.com/cose-wg/X509/pull/5.diff",
+      "patch_url": "https://github.com/cose-wg/X509/pull/5.patch"
+    },
+    "body": ""
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/X509/issues/4",
+    "repository_url": "https://api.github.com/repos/cose-wg/X509",
+    "labels_url": "https://api.github.com/repos/cose-wg/X509/issues/4/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/X509/issues/4/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/X509/issues/4/events",
+    "html_url": "https://github.com/cose-wg/X509/pull/4",
+    "id": 392897081,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjQwMDU3MDM5",
+    "number": 4,
+    "title": "Updates to document",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2018-12-20T05:35:53Z",
+    "updated_at": "2018-12-20T05:56:03Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/X509/pulls/4",
+      "html_url": "https://github.com/cose-wg/X509/pull/4",
+      "diff_url": "https://github.com/cose-wg/X509/pull/4.diff",
+      "patch_url": "https://github.com/cose-wg/X509/pull/4.patch"
+    },
+    "body": "Add text to deal w/ static-static DH"
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/X509/issues/3",
+    "repository_url": "https://api.github.com/repos/cose-wg/X509",
+    "labels_url": "https://api.github.com/repos/cose-wg/X509/issues/3/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/X509/issues/3/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/X509/issues/3/events",
+    "html_url": "https://github.com/cose-wg/X509/issues/3",
+    "id": 347633091,
+    "node_id": "MDU6SXNzdWUzNDc2MzMwOTE=",
+    "number": 3,
+    "title": " COSE_X509 CDDL",
+    "user": {
+      "login": "emanjon",
+      "id": 24212834,
+      "node_id": "MDQ6VXNlcjI0MjEyODM0",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/24212834?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/emanjon",
+      "html_url": "https://github.com/emanjon",
+      "followers_url": "https://api.github.com/users/emanjon/followers",
+      "following_url": "https://api.github.com/users/emanjon/following{/other_user}",
+      "gists_url": "https://api.github.com/users/emanjon/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/emanjon/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/emanjon/subscriptions",
+      "organizations_url": "https://api.github.com/users/emanjon/orgs",
+      "repos_url": "https://api.github.com/users/emanjon/repos",
+      "events_url": "https://api.github.com/users/emanjon/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/emanjon/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 1,
+    "created_at": "2018-08-04T17:01:59Z",
+    "updated_at": "2018-08-04T17:15:43Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "The CDDL states\r\n\r\nCOSE_X509 = bstr / [ *certs: bstr ]\r\n\r\nIf I understand draft-ietf-cbor-cddl correctly, '*' means zero or more. Shouldn't it be\r\n\r\nCOSE_X509 = bstr / [ 2* certs: bstr ]\r\n\r\nwhere 2* means two or more\r\n"
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/X509/issues/2",
+    "repository_url": "https://api.github.com/repos/cose-wg/X509",
+    "labels_url": "https://api.github.com/repos/cose-wg/X509/issues/2/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/X509/issues/2/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/X509/issues/2/events",
+    "html_url": "https://github.com/cose-wg/X509/pull/2",
+    "id": 230819798,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MTIyMDc4MDQ4",
+    "number": 2,
+    "title": "Edits to fill out more sections",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2017-05-23T19:36:41Z",
+    "updated_at": "2017-05-23T19:39:45Z",
+    "closed_at": "2017-05-23T19:39:45Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/X509/pulls/2",
+      "html_url": "https://github.com/cose-wg/X509/pull/2",
+      "diff_url": "https://github.com/cose-wg/X509/pull/2.diff",
+      "patch_url": "https://github.com/cose-wg/X509/pull/2.patch"
+    },
+    "body": ""
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/X509/issues/1",
+    "repository_url": "https://api.github.com/repos/cose-wg/X509",
+    "labels_url": "https://api.github.com/repos/cose-wg/X509/issues/1/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/X509/issues/1/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/X509/issues/1/events",
+    "html_url": "https://github.com/cose-wg/X509/pull/1",
+    "id": 191195399,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0OTQ5NDk2NTg=",
+    "number": 1,
+    "title": "Publish the -00 version",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2016-11-23T06:12:49Z",
+    "updated_at": "2016-11-23T06:15:47Z",
+    "closed_at": "2016-11-23T06:15:47Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/X509/pulls/1",
+      "html_url": "https://github.com/cose-wg/X509/pull/1",
+      "diff_url": "https://github.com/cose-wg/X509/pull/1.diff",
+      "patch_url": "https://github.com/cose-wg/X509/pull/1.patch"
+    },
+    "body": ""
+  }
+
+]

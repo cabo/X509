@@ -4,8 +4,8 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                              May 23, 2017
-Expires: November 24, 2017
+Intended status: Informational                         December 22, 2018
+Expires: June 25, 2019
 
 
   CBOR Object Signing and Encryption (COSE): Headers for carrying and
@@ -34,18 +34,18 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 24, 2017.
+   This Internet-Draft will expire on June 25, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2017 IETF Trust and the persons identified as the
+   Copyright (c) 2018 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,12 +53,12 @@ Copyright Notice
 
 
 
-Schaad                  Expires November 24, 2017               [Page 1]
+Schaad                    Expires June 25, 2019                 [Page 1]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -86,7 +86,7 @@ Table of Contents
 1.  Introduction
 
    In the process of writing RFCXXXX [I-D.ietf-cose-msg] discussions
-   where held on the question of X.509 certificates [RFC5280]  and if
+   where held on the question of X.509 certificates [RFC5280] and if
    there were needed.  At the time there were no use cases presented
    that appeared to have a sufficient set of support to include these
    headers.  Since that time a number of cases where X.509 certificate
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                  Expires November 24, 2017               [Page 2]
+Schaad                    Expires June 25, 2019                 [Page 2]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
 1.1.  Requirements Terminology
@@ -165,9 +165,9 @@ Internet-Draft                 COSE X.509                       May 2017
 
 
 
-Schaad                  Expires November 24, 2017               [Page 3]
+Schaad                    Expires June 25, 2019                 [Page 3]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
       As this header element does not provide any trust, the header
@@ -221,9 +221,9 @@ Internet-Draft                 COSE X.509                       May 2017
 
 
 
-Schaad                  Expires November 24, 2017               [Page 4]
+Schaad                    Expires June 25, 2019                 [Page 4]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
       *  application/pkix-cert [RFC2585]
@@ -277,9 +277,9 @@ Internet-Draft                 COSE X.509                       May 2017
 
 
 
-Schaad                  Expires November 24, 2017               [Page 5]
+Schaad                    Expires June 25, 2019                 [Page 5]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
 3.  Hash Algorithm Identifiers
@@ -333,9 +333,9 @@ Internet-Draft                 COSE X.509                       May 2017
 
 
 
-Schaad                  Expires November 24, 2017               [Page 6]
+Schaad                    Expires June 25, 2019                 [Page 6]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
 4.2.  COSE Algorithm Registry
@@ -357,31 +357,31 @@ Internet-Draft                 COSE X.509                       May 2017
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
-              <http://www.rfc-editor.org/info/rfc5280>.
+              <https://www.rfc-editor.org/info/rfc5280>.
 
 6.2.  Informative References
 
    [I-D.ietf-ace-cbor-web-token]
               Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
-              "CBOR Web Token (CWT)", draft-ietf-ace-cbor-web-token-04
-              (work in progress), April 2017.
+              "CBOR Web Token (CWT)", draft-ietf-ace-cbor-web-token-15
+              (work in progress), March 2018.
 
    [I-D.ietf-lamps-rfc5751-bis]
               Schaad, J., Ramsdell, B., and S. Turner, "Secure/
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
-              Message Specification", draft-ietf-lamps-rfc5751-bis-06
-              (work in progress), April 2017.
+              Message Specification", draft-ietf-lamps-rfc5751-bis-12
+              (work in progress), September 2018.
 
    [I-D.selander-ace-cose-ecdhe]
               Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
               Diffie-Hellman Over COSE (EDHOC)", draft-selander-ace-
-              cose-ecdhe-06 (work in progress), April 2017.
+              cose-ecdhe-10 (work in progress), September 2018.
 
 
 
@@ -389,20 +389,20 @@ Internet-Draft                 COSE X.509                       May 2017
 
 
 
-Schaad                  Expires November 24, 2017               [Page 7]
+Schaad                    Expires June 25, 2019                 [Page 7]
 
-Internet-Draft                 COSE X.509                       May 2017
+Internet-Draft                 COSE X.509                  December 2018
 
 
    [RFC2585]  Housley, R. and P. Hoffman, "Internet X.509 Public Key
               Infrastructure Operational Protocols: FTP and HTTP",
               RFC 2585, DOI 10.17487/RFC2585, May 1999,
-              <http://www.rfc-editor.org/info/rfc2585>.
+              <https://www.rfc-editor.org/info/rfc2585>.
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
-              <http://www.rfc-editor.org/info/rfc5246>.
+              <https://www.rfc-editor.org/info/rfc5246>.
 
 Author's Address
 
@@ -445,4 +445,4 @@ Author's Address
 
 
 
-Schaad                  Expires November 24, 2017               [Page 8]
+Schaad                    Expires June 25, 2019                 [Page 8]

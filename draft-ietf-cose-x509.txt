@@ -4,13 +4,13 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                         December 26, 2018
-Expires: June 29, 2019
+Intended status: Informational                          January 29, 2019
+Expires: August 2, 2019
 
 
   CBOR Object Signing and Encryption (COSE): Headers for carrying and
                      referencing X.509 certificates
-                     draft-schaad-cose-x509-latest
+                      draft-ietf-cose-x509-latest
 
 Abstract
 
@@ -47,20 +47,20 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 29, 2019.
+   This Internet-Draft will expire on August 2, 2019.
 
 
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 1]
+Schaad                   Expires August 2, 2019                 [Page 1]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 2]
+Schaad                   Expires August 2, 2019                 [Page 2]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    environment for enrollment of devices where the certificates are
@@ -165,9 +165,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 3]
+Schaad                   Expires August 2, 2019                 [Page 3]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    It is not necessarily expected that constrained devices will fully
@@ -221,9 +221,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 4]
+Schaad                   Expires August 2, 2019                 [Page 4]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
       As this header element does not provide any trust, the header
@@ -277,9 +277,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 5]
+Schaad                   Expires August 2, 2019                 [Page 5]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    o  COSE_Signature and COSE_Sign0 objects, in these objects they
@@ -333,9 +333,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 6]
+Schaad                   Expires August 2, 2019                 [Page 6]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    +-----------+------+--------------+------------------+--------------+
@@ -389,9 +389,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 7]
+Schaad                   Expires August 2, 2019                 [Page 7]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
 4.2.  SHA-2 256-bit Hash trucated to 64 bits
@@ -445,9 +445,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 8]
+Schaad                   Expires August 2, 2019                 [Page 8]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    +------------+-------+--------------------+-----------+-------------+
@@ -501,9 +501,9 @@ Internet-Draft                 COSE X.509                  December 2018
 
 
 
-Schaad                    Expires June 29, 2019                 [Page 9]
+Schaad                   Expires August 2, 2019                 [Page 9]
 
-Internet-Draft                 COSE X.509                  December 2018
+Internet-Draft                 COSE X.509                   January 2019
 
 
    [I-D.ietf-lamps-rfc5751-bis]
@@ -515,7 +515,7 @@ Internet-Draft                 COSE X.509                  December 2018
    [I-D.selander-ace-cose-ecdhe]
               Selander, G., Mattsson, J., and F. Palombini, "Ephemeral
               Diffie-Hellman Over COSE (EDHOC)", draft-selander-ace-
-              cose-ecdhe-10 (work in progress), September 2018.
+              cose-ecdhe-11 (work in progress), January 2019.
 
    [RFC2585]  Housley, R. and P. Hoffman, "Internet X.509 Public Key
               Infrastructure Operational Protocols: FTP and HTTP",
@@ -557,4 +557,4 @@ Author's Address
 
 
 
-Schaad                    Expires June 29, 2019                [Page 10]
+Schaad                   Expires August 2, 2019                [Page 10]

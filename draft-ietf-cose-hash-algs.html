@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta name="scripts" content="Common,Latin">
+<title>CBOR Object Signing and Encryption (COSE): Hash Algorithms</title>
+<meta name="author" content="Jim Schaad">
+<meta name="description" content="
+       
+        The CBOR Object Signing and Encryption (COSE) syntax   does not define any direct methods for using hash algorithms.
+        There are however circumstances where hash algorithms are used:
+        Indirect signatures where the hash of one or more contents are signed.
+        X.509 certificate or other object identification by the use of a thumbprint.
+        This document defines a set of hash algorithms that are identified by COSE Algorithm Identifiers.
+       
+    ">
+<meta name="generator" content="xml2rfc 2.19.1">
+<link rel="alternate" type="application/rfc+xml" href="draft-ietf-cose-hash-algs.xml">
+<link rel="license" href="#copyright">
+
+<style type="text/css">/*<![CDATA[*/
+
+body {
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
+}
+
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+  color: #333;
+  line-height: 100%;
+  margin: 1.2em 0 0.3em;
+}
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header, table#rfc\.headerblock {
+  width: 100%;
+}
+table.header td, table#rfc\.headerblock td {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
+.filename {
+  display: block;
+  color: rgb(119, 119, 119);
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+samp, tt, code, pre, span.tt {
+  font: 13.5px Consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure, caption {
+  font-style: italic;
+  margin: 0 1.5em;
+  text-align: left;
+}
+
+address {
+  margin: 16px 2px;
+  line-height: 20px;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn, address b {
+  font-weight: normal;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+p, ol, ul, li {
+  padding: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
+}
+address {
+  font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+  /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
+
+<link rel="stylesheet" href="rfc-local.css" type="text/css">
+</head>
+<body>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">COSE Hashes</td>
+<td class="right">March 2019</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Schaad</td>
+<td class="center">Expires 12 September 2019</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div class="document-information">
+<dl id="identifiers">
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-cose-hash-algs-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2019-03-11" class="published">11 March 2019</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2019-09-12">12 September 2019</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">J. Schaad</div>
+<div class="org">August Cellars</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">CBOR Object Signing and Encryption (COSE): Hash Algorithms</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">
+        The CBOR Object Signing and Encryption (COSE) syntax <span>[<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> does not define any direct methods for using hash algorithms.
+        There are however circumstances where hash algorithms are used:
+        Indirect signatures where the hash of one or more contents are signed.
+        X.509 certificate or other object identification by the use of a thumbprint.
+        This document defines a set of hash algorithms that are identified by COSE Algorithm Identifiers.
+      <a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.1">
+      <h2 id="name-contributing-to-this-docume">
+<a href="#name-contributing-to-this-docume" class="section-name selfRef">Contributing to this document</a>
+      </h2>
+<p id="section-note.1-1">
+        The source for this draft is being maintained in GitHub.
+        Suggested changes should be submitted as pull requests at TBD. 
+        Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.
+      <a href="#section-note.1-1" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.
+        <a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.
+        <a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."
+        <a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 12 September 2019.
+        <a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2019 IETF Trust and the persons identified as the
+            document authors. All rights reserved.
+        <a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Simplified BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Simplified BSD License.
+        <a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-boilerplate.3">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-boilerplate.3-1.1">
+            <p id="section-boilerplate.3-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-boilerplate.3-1.1.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-boilerplate.3-1.1.2.1">
+                <p id="section-boilerplate.3-1.1.2.1.1"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-boilerplate.3-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty" id="section-boilerplate.3-1.1.2.2">
+                <p id="section-boilerplate.3-1.1.2.2.1"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-open-issues" class="xref">Open Issues</a><a href="#section-boilerplate.3-1.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.2">
+            <p id="section-boilerplate.3-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-hash-algorithm-identifiers" class="xref">Hash Algorithm Identifiers</a><a href="#section-boilerplate.3-1.2.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-boilerplate.3-1.2.2.1">
+                <p id="section-boilerplate.3-1.2.2.1.1"><a href="#section-2.1" class="xref">2.1</a>.  <a href="#name-sha-1-hash-algorithm" class="xref">SHA-1 Hash Algorithm</a><a href="#section-boilerplate.3-1.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty" id="section-boilerplate.3-1.2.2.2">
+                <p id="section-boilerplate.3-1.2.2.2.1"><a href="#section-2.2" class="xref">2.2</a>.  <a href="#name-sha-2-hash-algorithms" class="xref">SHA-2 Hash Algorithms</a><a href="#section-boilerplate.3-1.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty" id="section-boilerplate.3-1.2.2.3">
+                <p id="section-boilerplate.3-1.2.2.3.1"><a href="#section-2.3" class="xref">2.3</a>.  <a href="#name-shake-algorithms" class="xref">SHAKE Algorithms</a><a href="#section-boilerplate.3-1.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.3">
+            <p id="section-boilerplate.3-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-boilerplate.3-1.3.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-boilerplate.3-1.3.2.1">
+                <p id="section-boilerplate.3-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-cose-algorithm-registry" class="xref">COSE Algorithm Registry</a><a href="#section-boilerplate.3-1.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.4">
+            <p id="section-boilerplate.3-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-boilerplate.3-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.5">
+            <p id="section-boilerplate.3-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-boilerplate.3-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.6">
+            <p id="section-boilerplate.3-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-boilerplate.3-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="toc ulEmpty" id="section-boilerplate.3-1.7">
+            <p id="section-boilerplate.3-1.7.1"><a href="#section-appendix.a" class="xref"></a>  <a href="#name-authors-address" class="xref">Author's Address</a><a href="#section-boilerplate.3-1.7.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">
+        The CBOR Object Signing and Encryption (COSE) syntax does not define any direct methods for the use of hash algorithms.
+        It also does not define a structure syntax that is used to encode a digested object structure along the lines of the DigestedData ASN.1 structure in <span>[<a href="#RFC5652" class="xref">CMS</a>]</span>.
+        This omission was intentional as a structure consisting of jut a digest identifier, the content, and a digest value does not by itself provide any strong security service.
+        Additional, an application is going to be better off defining this type of structure so that it can add any additional data that needs to be hashed as well as methods of obtaining the data.
+      <a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">
+        While the above is true, there are some cases where having some standard hash algorithms defined for COSE with a common identifier makes a great deal of sense.
+        Two of the cases where these are going to be used are:
+      <a href="#section-1-2" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-1-3.1">
+            Indirect signing of content, and
+          <a href="#section-1-3.1" class="pilcrow">¶</a>
+</li>
+        <li id="section-1-3.2">
+            Object identification.
+          <a href="#section-1-3.2" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-1-4">
+        Indirect signing of content is a paradigm where the content is not directly signed, but instead a hash of the content is computed and that hash value, along with the hash algorithm, is included in the content that will be signed.
+        Doing indirect signing allows for the a signature to be validated without first downloading all of the content associated with the signature.
+        This capability can be of even grater importance in a constrained environment as not all of the content signed may be needed by the device.
+      <a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">
+        The use of hashes to identify objects is something that has been very common.
+        One of the primary things that has been identified by a hash function for secure message is a certificate.
+        Two examples of this can be found in <span>[<a href="#RFC2634" class="xref">ESS</a>]</span> and the newly defined COSE equivalents in <span>[<a href="#I-D.ietf-cose-x509" class="xref">I-D.ietf-cose-x509</a>]</span>.
+      <a href="#section-1-5" class="pilcrow">¶</a></p>
+<div id="requirements-terminology">
+<section id="section-1.1">
+        <h3 id="name-requirements-terminology">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-requirements-terminology" class="section-name selfRef">Requirements Terminology</a>
+        </h3>
+<p id="section-1.1-1">
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.
+        <a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-1.2">
+        <h3 id="name-open-issues">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-open-issues" class="section-name selfRef">Open Issues</a>
+        </h3>
+<ul>
+<li id="section-1.2-1.1">
+            Are there additional SHA-2 formulations that need to be added or should some of the ones in this document be removed?
+          <a href="#section-1.2-1.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-1.2-1.2">
+            Should additional hash algorithms be added to the document?
+          <a href="#section-1.2-1.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-1.2-1.3">
+            Review the Recommended column in all of the tables to make sure that the values are correct.
+          <a href="#section-1.2-1.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-1.2-1.4">
+            Are there recommendations that should be provided on what range of identifiers should be used for these algorithms?
+            Inputs would include the expected frequency of use for each algorithm.
+          <a href="#section-1.2-1.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</section>
+</div>
+<section id="section-2">
+      <h2 id="name-hash-algorithm-identifiers">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-hash-algorithm-identifiers" class="section-name selfRef">Hash Algorithm Identifiers</a>
+      </h2>
+<section id="section-2.1">
+        <h3 id="name-sha-1-hash-algorithm">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-sha-1-hash-algorithm" class="section-name selfRef">SHA-1 Hash Algorithm</a>
+        </h3>
+<p id="section-2.1-1">
+            The SHA-1 hash algorithm <span>[<a href="#RFC3174" class="xref">RFC3174</a>]</span> wsa designed by the United States National Security Agenciy and published in 1995.
+            Since that time a large amount of cryptographic analysis has been applied to this algorithm and a successful collision attack has been created (<span>[<a href="#SHA-1-collision" class="xref">SHA-1-collision</a>]</span>).
+            The IETF formally started discouraging the use of SHA-1 with the publishing of <span>[<a href="#RFC6194" class="xref">RFC6194</a>]</span>.
+        <a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">
+            Dispite the above, there are still times where SHA-1 needs to be used and therefore it makes sense to assign a point for the use of this hash algorithm.
+            Some of these situations are with historic HSMs where only SHA-1 is implemented or where the SHA-1 value is used for the purpose of filtering and thus the collision resistance property is not needed.
+        <a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">
+            Because of the known issues for SHA-1 and the fact that is should no longer be used, the algorithm will be registered with the recommendation of "Depreciated".
+        <a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<span id="name-sha-1-hash-algorithm-2"></span><div id="SHA1-Algs">
+<table class="center" id="table-1">
+          <caption>
+<a href="#table-1">Table 1</a>:
+<a href="#name-sha-1-hash-algorithm-2" class="selfRef">SHA-1 Hash Algorithm</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              <th class="text-left" rowspan="1" colspan="1">Recommended</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-1</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD6</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-1 Hash</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Depreciated</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+</section>
+<section id="section-2.2">
+        <h3 id="name-sha-2-hash-algorithms">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-sha-2-hash-algorithms" class="section-name selfRef">SHA-2 Hash Algorithms</a>
+        </h3>
+<p id="section-2.2-1">
+          The family of SHA-2 hash algorithms <span>[<a href="#FIPS-180-4" class="xref">FIPS-180-4</a>]</span> was designed by the United States National Security Agency and published in 2001.
+          Since that time some additional algorithms have been added to the original set to deal with length extension attacks and some performance issues.
+          While the SHA-3 hash algorithms has been published since that time, the SHA-2 algorithms are still broadly used.
+        <a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">
+          There are a number of different parameters for the SHA-2 hash functions.
+          The set of hash functions which have been chosen for inclusion in this document are based on those different parameters and some of the trade-offs involved.
+        <a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-2.2-3.1">
+            <p id="section-2.2-3.1.1"><strong>SHA-256/64</strong> provides a truncated hash.
+              The length of the truncation is designed to allow for smaller transmission size.
+              The trade-off is that the odds that a collision will occur increase proportionally.
+              Locations that use this hash function need either to analysis the potential problems with having a collision occur, or where the only function of the hash is to narrow the possible choices.
+            <a href="#section-2.2-3.1.1" class="pilcrow">¶</a></p>
+<p id="section-2.2-3.1.2">
+                The latter is the case for <span>[<a href="#I-D.ietf-cose-x509" class="xref">I-D.ietf-cose-x509</a>]</span>, the hash value is used to select possible certificates and, if there are multiple choices then, each choice can be tested by using the public key.
+            <a href="#section-2.2-3.1.2" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-2.2-3.2">
+            <strong>SHA-256</strong> is probably the most common hash function used currently.
+              SHA-256 is the most efficient hash algorithm for 32-bit hardware.
+            <a href="#section-2.2-3.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.2-3.3">
+            <strong>SHA-384</strong> and <strong>SHA-512</strong> hash functions are more efficient when run on 64-bit hardware.
+            <a href="#section-2.2-3.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-2.2-3.4">
+            <strong>SHA-512/256</strong> provides a hash function that runs more efficiently on 64-bit hardware, but offers the same security levels as SHA-256.
+            <a href="#section-2.2-3.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+<span id="name-sha-2-hash-algorithms-2"></span><div id="SHA2-Algs">
+<table class="center" id="table-2">
+          <caption>
+<a href="#table-2">Table 2</a>:
+<a href="#name-sha-2-hash-algorithms-2" class="selfRef">SHA-2 Hash Algorithms</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              <th class="text-left" rowspan="1" colspan="1">Recommended</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-256/64</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD1</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-2 256-bit Hash truncated to 64-bits</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">No</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-256</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD2</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-2 256-bit Hash</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-384</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD3</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-2 384-bit Hash</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-512</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD4</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-2 512-bit Hash</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHA-512/256</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD5</td>
+              <td class="text-left" rowspan="1" colspan="1">SHA-2 512-bit Hash truncated to 256-bits</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+</section>
+<section id="section-2.3">
+        <h3 id="name-shake-algorithms">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-shake-algorithms" class="section-name selfRef">SHAKE Algorithms</a>
+        </h3>
+<p id="section-2.3-1">
+          The family SHA-3 hash algorithms <span>[<a href="#FIPS-180-4" class="xref">FIPS-180-4</a>]</span> was the result of a competition run by NIST.
+          The pair of algorithms known as SHAKE-128 and SHAKE-256 are the instances of SHA-3 that are currently being standardized in the IETF.
+        <a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">
+          The SHA-3 hash algorithms have a significantly different structure than the SHA-3 hash algorithms.
+          One of the benefits of this differences is that when computing a truncated SHAKE hash value, the value is not a prefix of a longer version of the same value.
+        <a href="#section-2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.3-3">
+          MAYBE TEXT:
+          Might not need to define truncated versions of this hash algorithm because the length of the resulting value is always going to generate a unique value since you cannot just truncate it like you can with SHA-1 and SHA-2.
+        <a href="#section-2.3-3" class="pilcrow">¶</a></p>
+<span id="name-shake-hash-functions"></span><div id="SHAKE-Algs">
+<table class="center" id="table-3">
+          <caption>
+<a href="#table-3">Table 3</a>:
+<a href="#name-shake-hash-functions" class="selfRef">SHAKE Hash Functions</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              <th class="text-left" rowspan="1" colspan="1">Recommended</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHAKE128</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD10</td>
+              <td class="text-left" rowspan="1" colspan="1">128-bit SHAKE</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">SHAKE256</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD11</td>
+              <td class="text-left" rowspan="1" colspan="1">256-bit SHAKE</td>
+              <td class="text-left" rowspan="1" colspan="1">[This Document]</td>
+              <td class="text-left" rowspan="1" colspan="1">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+</section>
+</section>
+<div id="iana-considerations">
+<section id="section-3">
+      <h2 id="name-iana-considerations">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<div id="cose-algorithm-registry">
+<section id="section-3.1">
+        <h3 id="name-cose-algorithm-registry">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-cose-algorithm-registry" class="section-name selfRef">COSE Algorithm Registry</a>
+        </h3>
+<p id="section-3.1-1">
+          IANA is requested to register the following algorithms in the "COSE Algorithms" registry.
+        <a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-3.1-2.1">
+            The SHA-1 hash function found in <a href="#SHA1-Algs" class="xref">Table 1</a>.
+          <a href="#section-3.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.1-2.2">
+            The set of SHA-2 hash functions found in <a href="#SHA2-Algs" class="xref">Table 2</a>.
+          <a href="#section-3.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.1-2.3">
+            The set of SHAKE hash functions found in <a href="#SHAKE-Algs" class="xref">Table 3</a>.
+          <a href="#section-3.1-2.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.1-3">
+          Many of the hash values produced are relatively long and as such the use of a two byte algorithm identifier seems reasonable.
+          SHA-1 is tagged as deprecated and thus a longer algorithm identifier is appropriate even though it is a shorter hash value.
+        <a href="#section-3.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-4">
+      <h2 id="name-security-considerations">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-4-1">
+        There are security considerations:
+      <a href="#section-4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-5">
+      <h2 id="name-normative-references">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      </h2>
+<dl class="references">
+<dt id="FIPS-180-4">[FIPS-180-4]</dt>
+      <dd>
+<span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Secure Hash Standard"</span>, <span class="seriesInfo">FIPS PUB 180-4</span>, <time datetime="2015-08">August 2015</time>. </dd>
+<dt id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</dt>
+      <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE) - Structures and Process"</span>, <span class="seriesInfo">Internet-Draft draft-ietf-cose-rfc8152bis-struct-01</span>, <time datetime="2019-02-14">14 February 2019</time>
+          <span>, &lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-struct-01">https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-struct-01</a>&gt;</span>. </dd>
+<dt id="RFC2119">[RFC2119]</dt>
+      <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03">March 1997</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dt id="RFC8174">[RFC8174]</dt>
+    <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05">May 2017</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+</dl>
+</section>
+<section id="section-6">
+      <h2 id="name-informative-references">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="RFC5652">[CMS]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">STD 70</span>, <span class="seriesInfo">RFC 5652</span>, <span class="seriesInfo">DOI 10.17487/RFC5652</span>, <time datetime="2009-09">September 2009</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc5652">https://www.rfc-editor.org/info/rfc5652</a>&gt;</span>. </dd>
+<dt id="RFC2634">[ESS]</dt>
+      <dd>
+<span class="refAuthor">Hoffman, P., Ed.</span>, <span class="refTitle">"Enhanced Security Services for S/MIME"</span>, <span class="seriesInfo">RFC 2634</span>, <span class="seriesInfo">DOI 10.17487/RFC2634</span>, <time datetime="1999-06">June 1999</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc2634">https://www.rfc-editor.org/info/rfc2634</a>&gt;</span>. </dd>
+<dt id="I-D.ietf-cose-x509">[I-D.ietf-cose-x509]</dt>
+      <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Headers for carrying and referencing X.509 certificates"</span>, <span class="seriesInfo">Internet-Draft draft-ietf-cose-x509-00</span>, <time datetime="2019-01-29">29 January 2019</time>
+          <span>, &lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-x509-00">https://www.ietf.org/archive/id/draft-ietf-cose-x509-00</a>&gt;</span>. </dd>
+<dt id="RFC3174">[RFC3174]</dt>
+      <dd>
+<span class="refAuthor">Eastlake 3rd, D.</span><span class="refAuthor"> and P. Jones</span>, <span class="refTitle">"US Secure Hash Algorithm 1 (SHA1)"</span>, <span class="seriesInfo">RFC 3174</span>, <span class="seriesInfo">DOI 10.17487/RFC3174</span>, <time datetime="2001-09">September 2001</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc3174">https://www.rfc-editor.org/info/rfc3174</a>&gt;</span>. </dd>
+<dt id="RFC6194">[RFC6194]</dt>
+      <dd>
+<span class="refAuthor">Polk, T.</span><span class="refAuthor">, Chen, L.</span><span class="refAuthor">, Turner, S.</span><span class="refAuthor">, and P. Hoffman</span>, <span class="refTitle">"Security Considerations for the SHA-0 and SHA-1 Message-Digest Algorithms"</span>, <span class="seriesInfo">RFC 6194</span>, <span class="seriesInfo">DOI 10.17487/RFC6194</span>, <time datetime="2011-03">March 2011</time>
+          <span>, &lt;<a href="https://www.rfc-editor.org/info/rfc6194">https://www.rfc-editor.org/info/rfc6194</a>&gt;</span>. </dd>
+<dt id="SHA-1-collision">[SHA-1-collision]</dt>
+    <dd>
+<span class="refAuthor">Stevens, M.</span><span class="refAuthor">, Bursztein, E.</span><span class="refAuthor">, Karpman, P.</span><span class="refAuthor">, Albertini, A.</span><span class="refAuthor">, and Y. Markov</span>, <span class="refTitle">"The first collision for full SHA-1"</span>, <time datetime="2017-02">February 2017</time>
+        <span>, &lt;<a href="https://shattered.io/static/shattered.pdf">https://shattered.io/static/shattered.pdf</a>&gt;</span>. </dd>
+</dl>
+</section>
+<div id="authors-addresses">
+<section id="section-appendix.a">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jim Schaad</span></div>
+<div dir="auto" class="left"><span class="org">August Cellars</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ietf@augustcellars.com" class="email">ietf@augustcellars.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>var toc = document.getElementById("toc");
+var tocToggle = toc.querySelector("h2");
+var tocNav = toc.querySelector("nav");
+
+// mobile menu toggle
+tocToggle.onclick = function(event) {
+    if (window.innerWidth < 1024) {
+ var tocNavDisplay = tocNav.currentStyle ? tocNav.currentStyle.display : getComputedStyle(tocNav, null).display;
+ if (tocNavDisplay == "none") {
+     tocNav.style.display = "block";
+ } else {
+     tocNav.style.display = "none";
+ }
+    }
+}
+
+// toc anchor scroll to anchor
+tocNav.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (event.target.nodeName == 'A') {
+ if (window.innerWidth < 1024) {
+     tocNav.style.display = "none";
+ }
+ var href = event.target.getAttribute("href");
+ var anchorId = href.substr(1);
+ var anchor =  document.getElementById(anchorId);
+ anchor.scrollIntoView(true);
+ window.history.pushState("","",href);
+    }
+});
+
+// switch toc mode when window resized
+window.onresize = function () {
+    if (window.innerWidth < 1024) {
+ tocNav.style.display = "none";
+    } else {
+ tocNav.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>

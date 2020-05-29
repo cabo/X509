@@ -4,8 +4,8 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                              7 March 2020
-Expires: 8 September 2020
+Intended status: Informational                               29 May 2020
+Expires: 30 November 2020
 
 
        CBOR Object Signing and Encryption (COSE): Hash Algorithms
@@ -16,11 +16,11 @@ Abstract
    The CBOR Object Signing and Encryption (COSE) syntax
    [I-D.ietf-cose-rfc8152bis-struct] does not define any direct methods
    for using hash algorithms.  There are however circumstances where
-   hash algorithms are used: Indirect signatures where the hash of one
-   or more contents are signed.  X.509 certificate or other object
-   identification by the use of a fingerprint.  This document defines a
-   set of hash algorithms that are identified by COSE Algorithm
-   Identifiers.
+   hash algorithms are used, such as indirect signatures where the hash
+   of one or more contents are signed, and X.509 certificate or other
+   object identification by the use of a fingerprint.  This document
+   defines a set of hash algorithms that are identified by COSE
+   Algorithm Identifiers.
 
 Contributing to this document
 
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 September 2020.
+   This Internet-Draft will expire on 30 November 2020.
 
 
 
 
 
 
-Schaad                  Expires 8 September 2020                [Page 1]
+Schaad                  Expires 30 November 2020                [Page 1]
 
-Internet-Draft                 COSE Hashes                    March 2020
+Internet-Draft                 COSE Hashes                      May 2020
 
 
 Copyright Notice
@@ -81,13 +81,13 @@ Table of Contents
    3.  Hash Algorithm Identifiers  . . . . . . . . . . . . . . . . .   5
      3.1.  SHA-1 Hash Algorithm  . . . . . . . . . . . . . . . . . .   5
      3.2.  SHA-2 Hash Algorithms . . . . . . . . . . . . . . . . . .   6
-     3.3.  SHAKE Algorithms  . . . . . . . . . . . . . . . . . . . .   7
+     3.3.  SHAKE Algorithms  . . . . . . . . . . . . . . . . . . . .   8
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
      4.1.  COSE Algorithm Registry . . . . . . . . . . . . . . . . .   8
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    6.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
    7.  Informative References  . . . . . . . . . . . . . . . . . . .  10
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                  Expires 8 September 2020                [Page 2]
+Schaad                  Expires 30 November 2020                [Page 2]
 
-Internet-Draft                 COSE Hashes                    March 2020
+Internet-Draft                 COSE Hashes                      May 2020
 
 
    *  Indirect signing of content, and
@@ -145,7 +145,7 @@ Internet-Draft                 COSE Hashes                    March 2020
 
    As noted in the previous section, hash functions can be used for a
    variety of purposes.  Some of these purposes require that a hash
-   function be cryptographically strong, these include direct and
+   function be cryptographically strong.  These include direct and
    indirect signatures.  That is, using the hash as part of the
    signature or using the hash as part of the body to be signed.  Other
    uses of hash functions do not require the same level of strength.
@@ -160,14 +160,14 @@ Internet-Draft                 COSE Hashes                    March 2020
 
    A hash function is a map from one, normally large, bit string to a
    second, usually smaller, bit string.  There are going to be
-   collisions by a hash function, the trick is to make sure that it is
+   collisions by a hash function.  The trick is to make sure that it is
    difficult to find two values that are going to map to the same output
 
 
 
-Schaad                  Expires 8 September 2020                [Page 3]
+Schaad                  Expires 30 November 2020                [Page 3]
 
-Internet-Draft                 COSE Hashes                    March 2020
+Internet-Draft                 COSE Hashes                      May 2020
 
 
    value.  The standard "Collision Attack" is one where an attacker can
@@ -212,8 +212,8 @@ Internet-Draft                 COSE Hashes                    March 2020
 
    *  The hash value.
 
-   *  A pointer to the value that was hashed, this could be a pointer to
-      a file, an object that can be obtained from the network, or a
+   *  A pointer to the value that was hashed.  this could be a pointer
+      to a file, an object that can be obtained from the network, or a
       pointer to someplace in the message, or something very application
       specific.
 
@@ -221,9 +221,9 @@ Internet-Draft                 COSE Hashes                    March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 4]
+Schaad                  Expires 30 November 2020                [Page 4]
 
-Internet-Draft                 COSE Hashes                    March 2020
+Internet-Draft                 COSE Hashes                      May 2020
 
 
    *  Additional data, this can be something as simple as a random value
@@ -247,10 +247,11 @@ Internet-Draft                 COSE Hashes                    March 2020
        4 : any ?   # object containing other details and things
        )
 
-   An alternate structure that could be used for situations where one is
-   searching a group of objects for a match.  In this case, the location
-   would not be needed and adding extra data to the hash would be
-   counterproductive.  This results in a structure that looks like this:
+   An alternative structure that could be used for situations where one
+   is searching a group of objects for a match.  In this case, the
+   location would not be needed and adding extra data to the hash would
+   be counterproductive.  This results in a structure that looks like
+   this:
 
    COSE_Hash_Find = [
        hashAlg : int / tstr,
@@ -268,19 +269,25 @@ Internet-Draft                 COSE Hashes                    March 2020
    ([SHA-1-collision]).  The IETF formally started discouraging the use
    of SHA-1 with the publishing of [RFC6194].
 
+
+
+
+
+
+
+
+
+Schaad                  Expires 30 November 2020                [Page 5]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
+
    Despite the above, there are still times where SHA-1 needs to be used
    and therefore it makes sense to assign a point for the use of this
    hash algorithm.  Some of these situations are with historic HSMs
    where only SHA-1 is implemented or where the SHA-1 value is used for
    the purpose of filtering and thus the collision resistance property
    is not needed.
-
-
-
-Schaad                  Expires 8 September 2020                [Page 5]
-
-Internet-Draft                 COSE Hashes                    March 2020
-
 
    Because of the known issues for SHA-1 and the fact that is should no
    longer be used, the algorithm will be registered with the
@@ -319,9 +326,17 @@ Internet-Draft                 COSE Hashes                    March 2020
       collision occur, or where the only function of the hash is to
       narrow the possible choices.
 
-      The latter is the case for [I-D.ietf-cose-x509], the hash value is
-      used to select possible certificates and, if there are multiple
+      The latter is the case for [I-D.ietf-cose-x509].  The hash value
+      is used to select possible certificates and, if there are multiple
       choices then, each choice can be tested by using the public key.
+
+
+
+
+Schaad                  Expires 30 November 2020                [Page 6]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
 
    *  *SHA-256* is probably the most common hash function used
       currently.  SHA-256 is an efficient hash algorithm for 32-bit
@@ -330,19 +345,11 @@ Internet-Draft                 COSE Hashes                    March 2020
    *  *SHA-384* and *SHA-512* hash functions are efficient for 64-bit
       hardware.
 
-
-
-
-Schaad                  Expires 8 September 2020                [Page 6]
-
-Internet-Draft                 COSE Hashes                    March 2020
-
-
    *  *SHA-512/256* provides a hash function that runs more efficiently
       on 64-bit hardware, but offers the same security levels as SHA-
       256.
 
-   The COSE capabilities for these algorithms is an empty array.
+   The COSE capabilities array for these algorithms is empty.
 
    +-----------+-----+-----------+--------------+---------+------------+
    | Name      |Value|Description| Capabilities |Reference|Recommended |
@@ -374,9 +381,22 @@ Internet-Draft                 COSE Hashes                    March 2020
 
                        Table 2: SHA-2 Hash Algorithms
 
+
+
+
+
+
+
+
+
+Schaad                  Expires 30 November 2020                [Page 7]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
+
 3.3.  SHAKE Algorithms
 
-   The family SHA-3 hash algorithms [FIPS-202] was the result of a
+   The family of SHA-3 hash algorithms [FIPS-202] was the result of a
    competition run by NIST.  The pair of algorithms known as SHAKE-128
    and SHAKE-256 are the instances of SHA-3 that are currently being
    standardized in the IETF.
@@ -386,20 +406,12 @@ Internet-Draft                 COSE Hashes                    March 2020
    differences is that when computing a shorter SHAKE hash value, the
    value is not a prefix of the result of computing the longer hash.
 
-
-
-
-Schaad                  Expires 8 September 2020                [Page 7]
-
-Internet-Draft                 COSE Hashes                    March 2020
-
-
    Unlike the SHA-2 hash functions, no algorithm identifier is created
    for shorter lengths.  Applications can specify a minimum length for
    any hash function.  A validator can infer the actual length from the
    hash value in these cases.
 
-   The COSE capabilities for these algorithms is an empty array.
+   The COSE capabilities array for these algorithms is empty.
 
    +--------+-----+-------------+--------------+---------+-------------+
    | Name   |Value| Description | Capabilities |Reference| Recommended |
@@ -415,6 +427,11 @@ Internet-Draft                 COSE Hashes                    March 2020
 
 4.  IANA Considerations
 
+   The IANA actions in [I-D.ietf-cose-rfc8152bis-struct] and
+   [I-D.ietf-cose-rfc8152bis-algs] need to be executed before the
+   actions in this document.  Where early allocation of data points has
+   been made, these should be preseved.
+
 4.1.  COSE Algorithm Registry
 
    IANA is requested to register the following algorithms in the "COSE
@@ -426,6 +443,13 @@ Internet-Draft                 COSE Hashes                    March 2020
 
    *  The set of SHAKE hash functions found in Table 3.
 
+
+
+Schaad                  Expires 30 November 2020                [Page 8]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
+
    Many of the hash values produced are relatively long and as such the
    use of a two byte algorithm identifier seems reasonable.  SHA-1 is
    tagged as deprecated and thus a longer algorithm identifier is
@@ -434,41 +458,30 @@ Internet-Draft                 COSE Hashes                    March 2020
    In addition, IANA is to add the value of 'Filter Only' to the set of
    legal values for the 'Recommended' column.  This value is only to be
    used for hash functions and indicates that it is not to be used for
-   purposes which require collision resistance.
+   purposes which require collision resistance.  IANA is requested to
+   add this document to the reference section for this table due to this
+   addition.
 
 5.  Security Considerations
 
-   The security considerations have already been called out as part of
-   the previous text.  The following issues need to be dealt with:
+   Protocols need to perform a careful analysis of the properties of a
+   hash function that are needed and how they map onto the possible
+   attacks.  In particular, one needs to distinguish between those uses
+   that need the cryptographic properties, i.e. collision resistance,
+   and properties that correspond to possible object identification.
+   The different attacks correspond to who or what is being protected:
+   is it the originator that is the attacker or a third party?  This is
+   the difference between collision resistance and second pre-image
+   resistance.  As a general rule, longer hash values are "better" than
+   short ones, but trade-offs of transmission size, timeliness, and
+   security all need to be included as part of this analysis.  In many
+   cases the value being hashed is a public value, as such pre-image
+   resistance is not part of this analysis.
 
-
-
-
-
-Schaad                  Expires 8 September 2020                [Page 8]
-
-Internet-Draft                 COSE Hashes                    March 2020
-
-
-   *  Protocols need to perform a careful analysis of the properties of
-      a hash function that are needed and how they map onto the possible
-      attacks.  In particular, one needs to distinguish between those
-      uses that need the cryptographic properties, i.e. collision
-      resistance, and properties that correspond to possible object
-      identification.  The different attacks correspond to who or what
-      is being protected, is it the originator that is the attacker or a
-      third party?  This is the difference between collision resistance
-      and second pre-image resistance.  As a general rule, longer hash
-      values are "better" than short ones, but trade-offs of
-      transmission size, timeliness, and security all need to be
-      included as part of this analysis.  In many cases the value being
-      hashed is a public value, as such pre-image resistance is not part
-      of this analysis.
-
-   *  Algorithm agility needs to be considered a requirement for any use
-      of hash functions.  As with any cryptographic function, hash
-      functions are under constant attack and the strength of hash
-      algorithms will be reduced over time.
+   Algorithm agility needs to be considered a requirement for any use of
+   hash functions.  As with any cryptographic function, hash functions
+   are under constant attack and the strength of hash algorithms will be
+   reduced over time.
 
 6.  Normative References
 
@@ -481,12 +494,24 @@ Internet-Draft                 COSE Hashes                    March 2020
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+
+
+
+
+Schaad                  Expires 30 November 2020                [Page 9]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
+
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-struct-07, 17 November 2019,
+              draft-ietf-cose-rfc8152bis-struct-09, 14 May 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              struct-07>.
+              struct-09>.
 
    [FIPS-180-4]
               National Institute of Standards and Technology, "Secure
@@ -497,15 +522,6 @@ Internet-Draft                 COSE Hashes                    March 2020
               Functions", FIPS PUB 202, August 2015.
 
    [COSE]     Schaad, J., "CBOR Object Signing and Encryption (COSE)",
-
-
-
-
-Schaad                  Expires 8 September 2020                [Page 9]
-
-Internet-Draft                 COSE Hashes                    March 2020
-
-
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
 
@@ -521,10 +537,10 @@ Internet-Draft                 COSE Hashes                    March 2020
 
    [I-D.ietf-cose-x509]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
-              Headers for carrying and referencing X.509 certificates",
-              Work in Progress, Internet-Draft, draft-ietf-cose-x509-05,
-              4 November 2019,
-              <https://tools.ietf.org/html/draft-ietf-cose-x509-05>.
+              Header parameters for carrying and referencing X.509
+              certificates", Work in Progress, Internet-Draft, draft-
+              ietf-cose-x509-06, 9 March 2020,
+              <https://tools.ietf.org/html/draft-ietf-cose-x509-06>.
 
    [RFC3174]  Eastlake 3rd, D. and P. Jones, "US Secure Hash Algorithm 1
               (SHA1)", RFC 3174, DOI 10.17487/RFC3174, September 2001,
@@ -534,6 +550,21 @@ Internet-Draft                 COSE Hashes                    March 2020
               Considerations for the SHA-0 and SHA-1 Message-Digest
               Algorithms", RFC 6194, DOI 10.17487/RFC6194, March 2011,
               <https://www.rfc-editor.org/info/rfc6194>.
+
+   [I-D.ietf-cose-rfc8152bis-algs]
+              Schaad, J., "CBOR Object Signing and Encryption (COSE):
+              Initial Algorithms", Work in Progress, Internet-Draft,
+
+
+
+Schaad                  Expires 30 November 2020               [Page 10]
+
+Internet-Draft                 COSE Hashes                      May 2020
+
+
+              draft-ietf-cose-rfc8152bis-algs-08, 14 May 2020,
+              <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
+              algs-08>.
 
    [SHA-1-collision]
               Stevens, M., Bursztein, E., Karpman, P., Albertini, A.,
@@ -557,4 +588,29 @@ Author's Address
 
 
 
-Schaad                  Expires 8 September 2020               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                  Expires 30 November 2020               [Page 11]

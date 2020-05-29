@@ -4,8 +4,8 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                              7 March 2020
-Expires: 8 September 2020
+Intended status: Informational                               29 May 2020
+Expires: 30 November 2020
 
 
     CBOR Object Signing and Encryption (COSE): Header parameters for
@@ -47,15 +47,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 September 2020.
+   This Internet-Draft will expire on 30 November 2020.
 
 
 
 
 
-Schaad                  Expires 8 September 2020                [Page 1]
+Schaad                  Expires 30 November 2020                [Page 1]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                  Expires 8 September 2020                [Page 2]
+Schaad                  Expires 30 November 2020                [Page 2]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
    to establish session keys.  A third scenario is the use of COSE as
@@ -161,16 +161,15 @@ Internet-Draft                 COSE X.509                     March 2020
 
    The header parameters defined in this document are:
 
-
-
-
-
-Schaad                  Expires 8 September 2020                [Page 3]
-
-Internet-Draft                 COSE X.509                     March 2020
-
-
    x5bag:  This header parameter contains a bag of X.509 certificates.
+
+
+
+Schaad                  Expires 30 November 2020                [Page 3]
+
+Internet-Draft                 COSE X.509                       May 2020
+
+
       The set of certificates in this header parameter is unordered and
       may contain self-signed certificates.  The certificate bag can
       contain certificates which are completely extraneous to the
@@ -221,9 +220,10 @@ Internet-Draft                 COSE X.509                     March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 4]
+
+Schaad                  Expires 30 November 2020                [Page 4]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
       *  If a single certificate is conveyed, it is placed in a CBOR
@@ -277,9 +277,9 @@ Internet-Draft                 COSE X.509                     March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 5]
+Schaad                  Expires 30 November 2020                [Page 5]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
          +---------+-------+---------------+---------------------+
@@ -333,9 +333,9 @@ Internet-Draft                 COSE X.509                     March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 6]
+Schaad                  Expires 30 November 2020                [Page 6]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
    +---------------+-----+-------------+-------------------+-----------+
@@ -389,9 +389,9 @@ Internet-Draft                 COSE X.509                     March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 7]
+Schaad                  Expires 30 November 2020                [Page 7]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
 5.  Security Considerations
@@ -445,9 +445,9 @@ Internet-Draft                 COSE X.509                     March 2020
 
 
 
-Schaad                  Expires 8 September 2020                [Page 8]
+Schaad                  Expires 30 November 2020                [Page 8]
 
-Internet-Draft                 COSE X.509                     March 2020
+Internet-Draft                 COSE X.509                       May 2020
 
 
 6.2.  Informative References
@@ -460,8 +460,8 @@ Internet-Draft                 COSE X.509                     March 2020
               Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
               1.3", Work in Progress, Internet-Draft, draft-ietf-tls-
-              dtls13-34, 19 November 2019,
-              <https://tools.ietf.org/html/draft-ietf-tls-dtls13-34>.
+              dtls13-38, 29 May 2020,
+              <https://tools.ietf.org/html/draft-ietf-tls-dtls13-38>.
 
    [RFC8551]  Schaad, J., Ramsdell, B., and S. Turner, "Secure/
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
@@ -494,20 +494,24 @@ Internet-Draft                 COSE X.509                     March 2020
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/info/rfc8610>.
 
+
+
+
+
+
+
+
+Schaad                  Expires 30 November 2020                [Page 9]
+
+Internet-Draft                 COSE X.509                       May 2020
+
+
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-algs-06, 4 November 2019,
-
-
-
-Schaad                  Expires 8 September 2020                [Page 9]
-
-Internet-Draft                 COSE X.509                     March 2020
-
-
+              draft-ietf-cose-rfc8152bis-algs-08, 14 May 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              algs-06>.
+              algs-08>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -553,8 +557,4 @@ Author's Address
 
 
 
-
-
-
-
-Schaad                  Expires 8 September 2020               [Page 10]
+Schaad                  Expires 30 November 2020               [Page 10]

@@ -4,8 +4,8 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                         17 September 2020
-Expires: 21 March 2021
+Intended status: Informational                           11 October 2020
+Expires: 14 April 2021
 
 
        CBOR Object Signing and Encryption (COSE): Hash Algorithms
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2021.
+   This Internet-Draft will expire on 14 April 2021.
 
 
 
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 1]
+Schaad                    Expires 14 April 2021                 [Page 1]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 2]
+Schaad                    Expires 14 April 2021                 [Page 2]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    *  Indirect signing of content, and
@@ -165,9 +165,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 3]
+Schaad                    Expires 14 April 2021                 [Page 3]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    A hash function is a map from one, normally large, bit string to a
@@ -221,9 +221,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 4]
+Schaad                    Expires 14 April 2021                 [Page 4]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    *  The hash algorithm identifier.
@@ -277,9 +277,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 5]
+Schaad                    Expires 14 April 2021                 [Page 5]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
 3.1.  SHA-1 Hash Algorithm
@@ -309,7 +309,7 @@ Internet-Draft                 COSE Hashes                September 2020
    +=====+======+=============+==============+===========+=============+
    |Name |Value | Description | Capabilities | Reference | Recommended |
    +=====+======+=============+==============+===========+=============+
-   |SHA-1| -14  | SHA-1 Hash  | []           | [This     | Filter Only |
+   |SHA-1|-14   | SHA-1 Hash  | []           | [This     | Filter Only |
    |     |      |             |              | Document] |             |
    +-----+------+-------------+--------------+-----------+-------------+
 
@@ -333,9 +333,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 6]
+Schaad                    Expires 14 April 2021                 [Page 6]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    *  *SHA-256/64* provides a truncated hash.  The length of the
@@ -389,36 +389,36 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 7]
+Schaad                    Expires 14 April 2021                 [Page 7]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    +===========+=====+===========+==============+=========+============+
-   | Name      |Value|Description| Capabilities |Reference|Recommended |
+   |Name       |Value|Description| Capabilities |Reference|Recommended |
    +===========+=====+===========+==============+=========+============+
-   |SHA-256/64 | -15 | SHA-2     | []           | [This   |Filter Only |
-   |           |     | 256-bit   |              |Document]|            |
-   |           |     | Hash      |              |         |            |
-   |           |     | truncated |              |         |            |
+   |SHA-256/64 |-15  |SHA-2      | []           |[This    |Filter Only |
+   |           |     |256-bit    |              |Document]|            |
+   |           |     |Hash       |              |         |            |
+   |           |     |truncated  |              |         |            |
    |           |     |to 64-bits |              |         |            |
    +-----------+-----+-----------+--------------+---------+------------+
-   | SHA-256   | -16 | SHA-2     | []           | [This   | Yes        |
-   |           |     | 256-bit   |              |Document]|            |
-   |           |     | Hash      |              |         |            |
+   |SHA-256    |-16  |SHA-2      | []           |[This    |Yes         |
+   |           |     |256-bit    |              |Document]|            |
+   |           |     |Hash       |              |         |            |
    +-----------+-----+-----------+--------------+---------+------------+
-   | SHA-384   | -43 | SHA-2     | []           | [This   | Yes        |
-   |           |     | 384-bit   |              |Document]|            |
-   |           |     | Hash      |              |         |            |
+   |SHA-384    |-43  |SHA-2      | []           |[This    |Yes         |
+   |           |     |384-bit    |              |Document]|            |
+   |           |     |Hash       |              |         |            |
    +-----------+-----+-----------+--------------+---------+------------+
-   | SHA-512   | -44 | SHA-2     | []           | [This   | Yes        |
-   |           |     | 512-bit   |              |Document]|            |
-   |           |     | Hash      |              |         |            |
+   |SHA-512    |-44  |SHA-2      | []           |[This    |Yes         |
+   |           |     |512-bit    |              |Document]|            |
+   |           |     |Hash       |              |         |            |
    +-----------+-----+-----------+--------------+---------+------------+
-   |SHA-512/256| -17 | SHA-2     | []           | [This   | Yes        |
-   |           |     | 512-bit   |              |Document]|            |
-   |           |     | Hash      |              |         |            |
-   |           |     | truncated |              |         |            |
+   |SHA-512/256|-17  |SHA-2      | []           |[This    |Yes         |
+   |           |     |512-bit    |              |Document]|            |
+   |           |     |Hash       |              |         |            |
+   |           |     |truncated  |              |         |            |
    |           |     |to 256-bits|              |         |            |
    +-----------+-----+-----------+--------------+---------+------------+
 
@@ -445,21 +445,21 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 8]
+Schaad                    Expires 14 April 2021                 [Page 8]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    +========+=====+=============+==============+=========+=============+
-   | Name   |Value| Description | Capabilities |Reference| Recommended |
+   |Name    |Value|Description  | Capabilities |Reference| Recommended |
    +========+=====+=============+==============+=========+=============+
-   |SHAKE128| -18 | SHAKE-128   | []           | [This   | Yes         |
+   |SHAKE128|-18  |SHAKE-128    | []           |[This    | Yes         |
    |        |     |256-bit Hash |              |Document]|             |
-   |        |     | Value       |              |         |             |
+   |        |     |Value        |              |         |             |
    +--------+-----+-------------+--------------+---------+-------------+
-   |SHAKE256| -45 | SHAKE-256   | []           | [This   | Yes         |
+   |SHAKE256|-45  |SHAKE-256    | []           |[This    | Yes         |
    |        |     |512-bit Hash |              |Document]|             |
-   |        |     | Value       |              |         |             |
+   |        |     |Value        |              |         |             |
    +--------+-----+-------------+--------------+---------+-------------+
 
                        Table 3: SHAKE Hash Functions
@@ -501,9 +501,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 9]
+Schaad                    Expires 14 April 2021                 [Page 9]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
 5.  Security Considerations
@@ -541,9 +541,9 @@ Internet-Draft                 COSE Hashes                September 2020
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-struct-13, 4 September 2020,
+              draft-ietf-cose-rfc8152bis-struct-14, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              struct-13>.
+              struct-14>.
 
    [FIPS-180-4]
               National Institute of Standards and Technology, "Secure
@@ -557,9 +557,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                [Page 10]
+Schaad                    Expires 14 April 2021                [Page 10]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    [RFC3174]  Eastlake 3rd, D. and P. Jones, "US Secure Hash Algorithm 1
@@ -580,8 +580,8 @@ Internet-Draft                 COSE Hashes                September 2020
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Header parameters for carrying and referencing X.509
               certificates", Work in Progress, Internet-Draft, draft-
-              ietf-cose-x509-06, 9 March 2020,
-              <https://tools.ietf.org/html/draft-ietf-cose-x509-06>.
+              ietf-cose-x509-07, 17 September 2020,
+              <https://tools.ietf.org/html/draft-ietf-cose-x509-07>.
 
    [RFC6194]  Polk, T., Chen, L., Turner, S., and P. Hoffman, "Security
               Considerations for the SHA-0 and SHA-1 Message-Digest
@@ -591,9 +591,9 @@ Internet-Draft                 COSE Hashes                September 2020
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-algs-11, 1 July 2020,
+              draft-ietf-cose-rfc8152bis-algs-12, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              algs-11>.
+              algs-12>.
 
    [I-D.ietf-suit-manifest]
               Moran, B., Tschofenig, H., Birkholz, H., and K. Zandberg,
@@ -613,9 +613,9 @@ Internet-Draft                 COSE Hashes                September 2020
 
 
 
-Schaad                    Expires 21 March 2021                [Page 11]
+Schaad                    Expires 14 April 2021                [Page 11]
 
-Internet-Draft                 COSE Hashes                September 2020
+Internet-Draft                 COSE Hashes                  October 2020
 
 
    [SHA-1-collision]
@@ -669,4 +669,4 @@ Author's Address
 
 
 
-Schaad                    Expires 21 March 2021                [Page 12]
+Schaad                    Expires 14 April 2021                [Page 12]

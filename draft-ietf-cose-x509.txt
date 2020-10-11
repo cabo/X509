@@ -4,8 +4,8 @@
 
 Network Working Group                                          J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Informational                         17 September 2020
-Expires: 21 March 2021
+Intended status: Informational                           11 October 2020
+Expires: 14 April 2021
 
 
     CBOR Object Signing and Encryption (COSE): Header parameters for
@@ -47,15 +47,15 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2021.
+   This Internet-Draft will expire on 14 April 2021.
 
 
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 1]
+Schaad                    Expires 14 April 2021                 [Page 1]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
 Copyright Notice
@@ -90,7 +90,7 @@ Table of Contents
 1.  Introduction
 
    In the process of writing [RFC8152] the working group discussed X.509
-   certificates [RFC5280] ad decided that no use cases wher prestented
+   certificates [RFC5280] and decided that no use cases were prestented
    that showed a need to support certificates.  Since that time a number
    of cases have been defined in which X.509 certificate support is
    necessary, and by implication, applications will need a documented
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 2]
+Schaad                    Expires 14 April 2021                 [Page 2]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
    the basis for a secure messaging application.  This scenario assumes
@@ -148,7 +148,7 @@ Internet-Draft                 COSE X.509                 September 2020
    party is not a constrained device, and is capable of performing the
    required certificate evaluation and processing.  It is also
    reasonable that a constrained device would have the hash of a
-   certificate associated with a public key and be configured use a
+   certificate associated with a public key and be configured to use a
    public key for that thumbprint, but without performing the
    certificate evaluation or even having the entire certificate.
 
@@ -165,9 +165,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 3]
+Schaad                    Expires 14 April 2021                 [Page 3]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
    The header parameters defined in this document are:
@@ -221,9 +221,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 4]
+Schaad                    Expires 14 April 2021                 [Page 4]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
       This header parameter allows for a single X.509 certificate or a
@@ -250,7 +250,7 @@ Internet-Draft                 COSE X.509                 September 2020
       MUST support the hash algorithm 'SHA-256', but can use other hash
       algorithms.
 
-      RFC Editor please remove the following paragraphs:
+      RFC Editor please remove the following two paragraphs:
 
       During AD review, a question was raised about how effective the
       previous statement is in terms of dealing with a MTI algorithm.
@@ -277,9 +277,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 5]
+Schaad                    Expires 14 April 2021                 [Page 5]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
       As this header parameter implies a trust relationship, the
@@ -333,9 +333,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 6]
+Schaad                    Expires 14 April 2021                 [Page 6]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
 3.  X.509 certificates and static-static ECDH
@@ -364,24 +364,24 @@ Internet-Draft                 COSE X.509                 September 2020
       same as 'x5u'.
 
    +===============+=====+=============+===================+===========+
-   | Name          |Label| Type        | Algorithm         |Description|
+   |Name           |Label|Type         | Algorithm         |Description|
    +===============+=====+=============+===================+===========+
-   | x5t-sender    | TBD |COSE_CertHash| ECDH-SS+HKDF-256, |Thumbprint |
-   |               |     |             | ECDH-SS+HKDF-512, | for the   |
-   |               |     |             | ECDH-SS+A128KW,   | senders   |
-   |               |     |             | ECDH-SS+AES192KW, | X.509     |
+   |x5t-sender     |TBD  |COSE_CertHash| ECDH-SS+HKDF-256, |Thumbprint |
+   |               |     |             | ECDH-SS+HKDF-512, |for the    |
+   |               |     |             | ECDH-SS+A128KW,   |senders    |
+   |               |     |             | ECDH-SS+AES192KW, |X.509      |
    |               |     |             | ECDH-SS+AES256KW  |certificate|
    +---------------+-----+-------------+-------------------+-----------+
-   | x5u-sender    | TBD | uri         | ECDH-SS+HKDF-256, |URI for the|
-   |               |     |             | ECDH-SS+HKDF-512, | senders   |
-   |               |     |             | ECDH-SS+A128KW,   | X.509     |
+   |x5u-sender     |TBD  |uri          | ECDH-SS+HKDF-256, |URI for the|
+   |               |     |             | ECDH-SS+HKDF-512, |senders    |
+   |               |     |             | ECDH-SS+A128KW,   |X.509      |
    |               |     |             | ECDH-SS+AES192KW, |certificate|
    |               |     |             | ECDH-SS+AES256KW  |           |
    +---------------+-----+-------------+-------------------+-----------+
-   |x5chain-sender | TBD | COSE_X509   | ECDH-SS+HKDF-256, |static key |
-   |               |     |             | ECDH-SS+HKDF-512, | X.509     |
+   |x5chain-sender |TBD  |COSE_X509    | ECDH-SS+HKDF-256, |static key |
+   |               |     |             | ECDH-SS+HKDF-512, |X.509      |
    |               |     |             | ECDH-SS+A128KW,   |certificate|
-   |               |     |             | ECDH-SS+AES192KW, | chain     |
+   |               |     |             | ECDH-SS+AES192KW, |chain      |
    |               |     |             | ECDH-SS+AES256KW  |           |
    +---------------+-----+-------------+-------------------+-----------+
 
@@ -389,9 +389,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 7]
+Schaad                    Expires 14 April 2021                 [Page 7]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
 4.  IANA Considerations
@@ -445,9 +445,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 8]
+Schaad                    Expires 14 April 2021                 [Page 8]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -501,9 +501,9 @@ Internet-Draft                 COSE X.509                 September 2020
 
 
 
-Schaad                    Expires 21 March 2021                 [Page 9]
+Schaad                    Expires 14 April 2021                 [Page 9]
 
-Internet-Draft                 COSE X.509                 September 2020
+Internet-Draft                 COSE X.509                   October 2020
 
 
    [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
@@ -524,9 +524,9 @@ Internet-Draft                 COSE X.509                 September 2020
    [I-D.richardson-enrollment-roadmap]
               Richardson, M., "Device Enrollment in IETF protocols -- A
               Roadmap", Work in Progress, Internet-Draft, draft-
-              richardson-enrollment-roadmap-02, 23 May 2018,
+              richardson-enrollment-roadmap-03, 7 October 2020,
               <https://tools.ietf.org/html/draft-richardson-enrollment-
-              roadmap-02>.
+              roadmap-03>.
 
 Author's Address
 
@@ -557,4 +557,4 @@ Author's Address
 
 
 
-Schaad                    Expires 21 March 2021                [Page 10]
+Schaad                    Expires 14 April 2021                [Page 10]
